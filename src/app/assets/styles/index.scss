@@ -1,0 +1,9 @@
+@use "./components/navbar.scss";
+@use "./components/footer.scss";
+@use "./components/products.scss";
+@use "./components/customdropdown.scss";
+@use "./components/products/cardcommon.scss";
+@use "./components/cart.scss";
+@use "./main.scss";
+@use "./core.scss";
+@forward "./fonts";

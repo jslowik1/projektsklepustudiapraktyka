@@ -1,0 +1,27 @@
+.custom-input {
+  background-color: #1a1a2e;
+  border-radius: 0.75rem;
+  border: 2px solid #ff2e88;
+  padding: 5px 10px;
+  color: white;
+  font-size: 15px;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.custom-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.text-input {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  .custom-input {
+    &:focus {
+      outline: none;
+    }
+  }
+}

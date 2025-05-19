@@ -1,0 +1,18 @@
+.icon_button {
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    color: #F2F2F2;
+    flex-direction: column;
+    font-weight: bold;
+
+    &-text {
+        color: black;
+        display: inline-block;
+    }
+}
