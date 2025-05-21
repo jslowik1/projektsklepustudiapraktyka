@@ -1,28 +1,59 @@
 "use client";
 import { IProduct } from "@/app/model/IProduct";
-import IconButton from "../IconButton";
-import { useRouter } from "next/navigation";
-import { FaCartPlus } from "react-icons/fa";
+import IconButton from "../inputs/IconButton";
 import { useCart } from "@/app/context/CartProvider";
+import { FaPlus, FaCheck } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import CustomRating from "../inputs/Rating";
 interface IProductCardProps {
     item: IProduct
 }
 const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
-    const { addToCart } = useCart();
+    const { addToCart, cart, removeFromCart } = useCart();
+    const [inCart, setInCart] = useState<boolean>(false);
+    const router = useRouter();
+    const [image, setImage] = useState();
     const handleAddToCart = () => {
-        addToCart(item);
+        if (inCart) removeFromCart(item.id);
+        else addToCart(item);
     }
 
-    const router = useRouter();
+    useEffect(() => {
+        if (item.image && !image) {
+            const img = import("../../assets/images/" + item.image).then(v => v).catch(() => { return "" })
+            Promise.all([
+                img
+            ]).then(items => {
+                if (items[0] && items[0] !== "")
+                    setImage(items[0].default.src);
+            })
+        }
+    }, [item.image])
+
+    useEffect(() => {
+        if (cart.find((cartItem) => cartItem.id === item.id))
+            setInCart(true);
+        else
+            setInCart(false);
+    }, [cart])
+
     if (item)
         return (<div className="product-card">
-            <div className={`product-card_img ${item.category}`} />
+            {item.onSale === true ? <div className="sale-badge">
+                Promocja
+            </div> : null}
+            <div onClick={() => { router.push(`/categories/${item.category}/${item.internalName}`) }} style={{ backgroundImage: `url(${image})` }} className={`product-card_img ${item.category}`} />
             <div className="product-card_desc">
                 <div>{item.title}</div>
-                <div>{item.price} zł</div>
+                <CustomRating rating={item.rating.rate} reviewCount={item.rating.count} />
+                <div>
+                    <span style={{ textDecoration: item.onSale === true ? "line-through" : "none" }}>{item.price} zł</span>
+                    {item.onSale ? <span style={{ color: "#ff2e88", marginLeft: 10 }}>{item.onSale === true ? `${item.salePrice} zł` : null}</span> : null}
+                </div>
                 <div className="buttons">
-                    <button onClick={() => { router.push(`/categories/${item.category}/${item.internalName}`) }} className="product-card_desc-button">Zobacz produkt</button>
-                    <IconButton Icon={() => <FaCartPlus />} onClick={() => { handleAddToCart() }} />
+                    {/* <button onClick={() => { router.push(`/categories/${item.category}/${item.internalName}`) }} className="product-card_desc-button">Zobacz produkt</button> */}
+                    <IconButton Icon={() => inCart ? <FaCheck /> : <FaPlus />} onClick={() => { handleAddToCart() }} />
                 </div>
             </div>
         </div>);

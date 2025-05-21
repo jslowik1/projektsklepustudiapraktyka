@@ -12,4 +12,6 @@ export interface IProduct {
     rate: number;
     count: number;
   };
+  onSale?: boolean;
+  salePrice?: number;
 }

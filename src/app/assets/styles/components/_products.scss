@@ -1,6 +1,10 @@
 .product-main {
   height: 100%;
-  background-color: #0d0c1d;
+  background-color: #0d0c1da1;
+  background-image: url("../../../assets/images/background.png");
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
   padding: 20px;
   flex: 1;
   display: flex;
@@ -10,13 +14,18 @@
 .product-list {
   display: flex;
   color: white;
-  background-color: #1a1a2e;
+  background-color: rgba(26, 26, 46, 0.75);
   height: 100%;
   flex: 1;
   border-radius: 0.75rem;
   border: 2px solid #ff2e88;
 
+  @media (max-width: 760px) {
+    flex-direction: column;
+  }
+
   &_filters {
+
     &-title {
       font-size: 30px;
       text-align: center;
@@ -39,19 +48,25 @@
       display: flex;
       gap: 10px;
     }
+
+    @media (max-width: 760px) {
+      border: none;
+    }
   }
 
   &_content {
     padding: 20px;
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, auto));
+    justify-content: start;
     height: 100%;
     width: 100%;
 
     @media (max-width: 768px) {
       flex-direction: column;
       overflow-y: scroll;
+      justify-content: center;
     }
   }
 }

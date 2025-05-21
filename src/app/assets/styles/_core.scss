@@ -15,4 +15,9 @@
         color: black;
         display: inline-block;
     }
+
+    &.disabled {
+        color: darken(#F2F2F2, 25%);
+        cursor: default;
+    }
 }

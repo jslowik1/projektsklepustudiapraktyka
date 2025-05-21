@@ -1,5 +1,5 @@
 "use client";
-import IconButton from "@/app/components/IconButton";
+import IconButton from "@/app/components/inputs/IconButton";
 import { ICartItem, useCart } from "@/app/context/CartProvider";
 import { translateCategory } from "@/app/tools/Tools";
 import { FaTrash } from "react-icons/fa";

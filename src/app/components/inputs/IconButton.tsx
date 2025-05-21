@@ -7,11 +7,12 @@ interface IIconButtonProps {
     onClick: () => void;
     size?: number;
     text?: string;
+    disabled?: boolean
 }
 
-const IconButton: React.FC<IIconButtonProps> = ({ Icon, onClick, size, text }) => {
+const IconButton: React.FC<IIconButtonProps> = ({ Icon, onClick, size, text, disabled }) => {
     return (
-        <button className="icon_button" onClick={onClick}>
+        <button className={`icon_button ${disabled ? "disabled" : ""}`} onClick={!disabled ? onClick : undefined}>
             <Icon size={size} />
             {text ?? text}
         </button>

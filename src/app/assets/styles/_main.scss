@@ -26,6 +26,10 @@
 
 .inside {
   background-color: #0d0c1d;
+  background-image: url("../../assets/images/background2.png");
+  background-blend-mode: darken;
+  background-size: cover;
+  background-position: center;
   height: 100%;
   flex: 1;
   color: white;
@@ -41,17 +45,33 @@
     overflow: hidden;
     border: #504d7a 2px solid;
 
+    @media (max-width: 768px) {
+      flex-direction: column;
+      height: 1000px;
+    }
+
     .sale {
       background-image: url("../../assets/images/sale.png");
       height: 200px;
       flex: 1;
       background-size: cover;
       background-position: center;
+      transition: all 0.25s ease-out;
 
       &:hover {
         transform: scale(1.1);
         cursor: pointer;
       }
+    }
+  }
+
+  .recommended-products {
+    width: 100%;
+    display: flex;
+
+    @media (max-width: 768px) {
+      align-items: center;
+      flex-direction: column;
     }
   }
 }

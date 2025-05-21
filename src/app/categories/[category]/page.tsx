@@ -1,4 +1,5 @@
 "use client";
+import { products } from "@/app/assets/products";
 import Dropdown from "@/app/components/inputs/Dropdown";
 import TextInput from "@/app/components/inputs/TextInput";
 import ProductCard from "@/app/components/productCards/ProductCard";
@@ -12,74 +13,6 @@ const Page = () => {
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState<string>("");
 
-  const products: IProduct[] = [
-    {
-      id: 2,
-      internalName: "keychronV2",
-      title: "Keychron V2",
-      price: 750,
-      description: "Klawiatura",
-      image: "",
-      category: Product.Keyboard,
-      rating: {
-        rate: 5,
-        count: 1,
-      },
-    },
-    {
-      id: 3,
-      internalName: "keychronV2",
-      title: "Keychron V2",
-      price: 750,
-      description: "Klawiatura",
-      image: "",
-      category: Product.Keyboard,
-      rating: {
-        rate: 5,
-        count: 1,
-      },
-    },
-    {
-      id: 1,
-      internalName: "keychronV1",
-      title: "Keychron V1",
-      price: 450,
-      description: "Klawiatura",
-      image: "",
-      category: Product.Keyboard,
-      rating: {
-        rate: 5,
-        count: 1,
-      },
-    },
-    {
-      id: 4,
-      internalName: "keychronV2",
-      title: "Keychron V2",
-      price: 750,
-      description: "Klawiatura",
-      image: "",
-      category: Product.Keyboard,
-      rating: {
-        rate: 5,
-        count: 1,
-      },
-    },
-    {
-      id: 5,
-      internalName: "keychronMouse",
-      title: "Keychron Mouse",
-      price: 350,
-      description: "Myszka",
-      image: "",
-      category: Product.Mouse,
-      rating: {
-        rate: 5,
-        count: 1,
-      },
-    },
-  ];
-
   const [filteredProducts, setFilteredProducts] =
     useState<IProduct[]>(products);
 
@@ -91,15 +24,25 @@ const Page = () => {
       .sort((a, b) => {
         if (sort === "asc") return a.price - b.price;
         else if (sort === "desc") return b.price - a.price;
+        else if (sort === "rate") return b.rating.rate - a.rating.rate;
+        else if (sort === "sale") return (b.onSale ? 1 : 0) - (a.onSale ? 1 : 0);
         else return 0;
       })
-      .filter((item) => item.category === category);
+      .filter((item) => {
+        if (category === "sale") {
+          return item.onSale === true;
+        } else return item.category === category
+      });
     setFilteredProducts(filteredProductsNew);
   }, [sort, search]);
 
   useEffect(() => {
     setFilteredProducts(
-      filteredProducts.filter((item) => item.category === category)
+      filteredProducts.filter((item) => {
+        if (category === "sale") {
+          return item.onSale === true;
+        } else return item.category === category
+      })
     );
   }, [category]);
 
@@ -110,12 +53,13 @@ const Page = () => {
           {category === Product.Keyboard
             ? "Klawiatury"
             : category === Product.Mouse
-            ? "Myszki"
-            : category === Product.Mousepad
-            ? "Podkładki"
-            : category === Product.Microphone
-            ? "Mikrofony"
-            : "Akcesoria"}
+              ? "Myszki"
+              : category === Product.Mousepad
+                ? "Podkładki"
+                : category === Product.Microphone
+                  ? "Mikrofony" :
+                  category === "sale" ? "Wyprzedaż"
+                    : "Akcesoria"}
         </div>
         <div>
           <div className="product-list_filters-item">
@@ -129,6 +73,8 @@ const Page = () => {
               options={[
                 { value: "asc", label: "Cena rosnąco" },
                 { value: "desc", label: "Cena malejąco" },
+                { value: "sale", label: "Wyprzedaż" },
+                { value: "rate", label: "Ocena" },
               ]}
               onChange={(e) => {
                 setSort(e);
@@ -142,6 +88,7 @@ const Page = () => {
         {filteredProducts.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}
+        {filteredProducts.length === 0 ? <span>{search !== "" ? "Brak pasujących produktów" : "Brak produktów"}</span> : null}
       </div>
     </>
   );

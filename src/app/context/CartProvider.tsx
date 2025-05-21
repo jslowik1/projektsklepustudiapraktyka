@@ -20,17 +20,21 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [cart, setCart] = useState<ICartItem[]>([]);
     const STORAGE_KEY = "shopping_cart";
+    const [isInitialized, setIsInitialized] = useState(false);
 
     useEffect(() => {
         const stored = localStorage.getItem(STORAGE_KEY);
         if (stored) {
             setCart(JSON.parse(stored));
         }
+        setIsInitialized(true);
     }, []);
 
     useEffect(() => {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
-    }, [cart]);
+        if (isInitialized) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
+        }
+    }, [cart, isInitialized]);
 
     const addToCart = (product: IProduct) => {
         setCart((prev) => {
@@ -50,7 +54,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         setCart((prev) => prev.filter((item) => item.id !== productId));
     };
 
-    const clearCart = () => setCart([]);
+    const clearCart = () => { setCart([]) };
 
     // Funkcja do aktualizacji ilości produktu w koszyku
     const updateQuantity = (productId: number, quantity: number) => {

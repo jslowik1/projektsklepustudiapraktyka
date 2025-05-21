@@ -1,6 +1,6 @@
 "use client";
 import { MdPerson, MdPhone, MdShoppingBasket } from "react-icons/md";
-import IconButton from "../IconButton";
+import IconButton from "../inputs/IconButton";
 import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/app/context/CartProvider";
 import { BiMenu } from "react-icons/bi";
@@ -28,11 +28,11 @@ const Navbar = () => {
           <button className={pathname === "/categories/mousepad" ? "active" : ""} onClick={() => router.push("/categories/mousepad")}>Podkładki</button>
           <button className={pathname === "/categories/microphone" ? "active" : ""} onClick={() => router.push("/categories/microphone")}>Mikrofony</button>
           <button className={pathname === "/categories/accessories" ? "active" : ""} onClick={() => router.push("/categories/accessories")}>Akcesoria</button>
-          <button className={`${pathname === "/categories/accessories" ? "active" : ""} sale`} onClick={() => router.push("/sale")}>Wyprzedaż</button>
+          <button className={`${pathname === "/categories/accessories" ? "active" : ""} sale`} onClick={() => router.push("/categories/sale")}>Wyprzedaż</button>
         </div>}
         <div className="navbar_header-buttons">
-          <IconButton Icon={MdPhone} text="Kontakt" size={20} onClick={() => { }} />
-          <IconButton Icon={MdPerson} text="Konto" size={20} onClick={() => { }} />
+          <IconButton disabled Icon={MdPhone} text="Kontakt" size={20} onClick={() => { }} />
+          <IconButton disabled Icon={MdPerson} text="Konto" size={20} onClick={() => { }} />
           <IconButton Icon={MdShoppingBasket} text={`Koszyk ${cart.length}`} size={20} onClick={() => { router.push("/cart") }} />
         </div>
       </div>
