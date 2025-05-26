@@ -4,6 +4,7 @@ import "./assets/styles/index.scss";
 import Navbar from "./components/navbar/Navbar";
 import Footer from "./components/footer/Footer";
 import { Providers } from "./context/ContextProviders";
+import { Toaster } from "react-hot-toast";
 
 const rajdhani = Rajdhani({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className={`${rajdhani.className} mainbody`}>
         <Providers>
           <Navbar />
+          <Toaster position="bottom-center" toastOptions={{ style: { background: "#ff2e88", color: "white" } }} />
           {children}
           <Footer />
         </Providers>

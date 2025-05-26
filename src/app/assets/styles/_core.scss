@@ -10,6 +10,7 @@
     color: #F2F2F2;
     flex-direction: column;
     font-weight: bold;
+    position: relative;
 
     &-text {
         color: black;
@@ -19,5 +20,21 @@
     &.disabled {
         color: darken(#F2F2F2, 25%);
         cursor: default;
+    }
+
+    .badge {
+        position: absolute;
+        background-color: #ff2e88;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        top: -10px;
+        right: -5px;
     }
 }

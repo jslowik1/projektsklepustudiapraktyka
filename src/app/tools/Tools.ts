@@ -7,7 +7,8 @@ export const translateCategory = (category: string): string =>
         category === "mouse" ? "Mysz" :
             category === "mousepad" ? "Podkładka" :
                 category === "microphone" ? "Mikrofon" :
-                    "Akcesoria";
+                    category === "sale" ? "Promocje" :
+                        "Akcesoria";
 
 export const useScreenWidth = () => {
     "use client"

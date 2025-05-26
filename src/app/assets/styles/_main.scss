@@ -1,3 +1,5 @@
+@use "./variables" as *;
+
 .mainbody {
   padding: 0;
   margin: 0;
@@ -8,6 +10,15 @@
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
+
+  .current-offer {
+    width: 100%;
+    text-align: center;
+    background-color: $base-color;
+    color: white;
+    border-radius: $border-radius;
+    padding: 3px;
+  }
 }
 
 .not-found {
@@ -68,10 +79,38 @@
   .recommended-products {
     width: 100%;
     display: flex;
+    gap: 20px;
 
     @media (max-width: 768px) {
       align-items: center;
       flex-direction: column;
+
+      .product-card {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        padding: 0;
+        margin: 0;
+
+        &_img {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          height: 110px;
+          margin: 0;
+        }
+
+        &_desc {
+          flex: 1;
+        }
+
+        .sale-badge {
+          left: 0;
+          right: unset;
+          border-radius: 0 0 0.75rem 0;
+        }
+      }
     }
   }
 }

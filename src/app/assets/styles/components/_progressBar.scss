@@ -1,0 +1,23 @@
+@use '../variables' as *;
+
+.progress-bar-container {
+    width: 100%;
+
+    span {
+        font-size: 16px;
+        font-weight: normal;
+    }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: #fff;
+    border-radius: 0.75rem;
+    overflow: hidden;
+
+    &_progress {
+        background-color: $base-color;
+        height: 100%;
+    }
+}

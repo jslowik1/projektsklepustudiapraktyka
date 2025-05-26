@@ -4,7 +4,7 @@ import Dropdown from "@/app/components/inputs/Dropdown";
 import TextInput from "@/app/components/inputs/TextInput";
 import ProductCard from "@/app/components/productCards/ProductCard";
 import { IProduct } from "@/app/model/IProduct";
-import { Product } from "@/app/model/Product";
+import { translateCategory } from "@/app/tools/Tools";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -50,16 +50,7 @@ const Page = () => {
     <>
       <div className="product-list_filters">
         <div className="product-list_filters-title">
-          {category === Product.Keyboard
-            ? "Klawiatury"
-            : category === Product.Mouse
-              ? "Myszki"
-              : category === Product.Mousepad
-                ? "Podkładki"
-                : category === Product.Microphone
-                  ? "Mikrofony" :
-                  category === "sale" ? "Wyprzedaż"
-                    : "Akcesoria"}
+          {translateCategory(category)}
         </div>
         <div>
           <div className="product-list_filters-item">
@@ -69,7 +60,7 @@ const Page = () => {
         <div>
           <div className="product-list_filters-item">
             <Dropdown
-              label="Sortuj"
+              label="Sortuj według:"
               options={[
                 { value: "asc", label: "Cena rosnąco" },
                 { value: "desc", label: "Cena malejąco" },

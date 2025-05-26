@@ -6,6 +6,7 @@ import { FaPlus, FaCheck } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomRating from "../inputs/Rating";
+import toast from 'react-hot-toast';
 interface IProductCardProps {
     item: IProduct
 }
@@ -15,8 +16,14 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
     const router = useRouter();
     const [image, setImage] = useState();
     const handleAddToCart = () => {
-        if (inCart) removeFromCart(item.id);
-        else addToCart(item);
+        if (inCart) {
+            removeFromCart(item.id);
+            toast(`Usunięto ${item.title} z koszyka`);
+        }
+        else {
+            addToCart(item);
+            toast(`Dodano ${item.title} do koszyka`);
+        };
     }
 
     useEffect(() => {
@@ -52,7 +59,6 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
                     {item.onSale ? <span style={{ color: "#ff2e88", marginLeft: 10 }}>{item.onSale === true ? `${item.salePrice} zł` : null}</span> : null}
                 </div>
                 <div className="buttons">
-                    {/* <button onClick={() => { router.push(`/categories/${item.category}/${item.internalName}`) }} className="product-card_desc-button">Zobacz produkt</button> */}
                     <IconButton Icon={() => inCart ? <FaCheck /> : <FaPlus />} onClick={() => { handleAddToCart() }} />
                 </div>
             </div>

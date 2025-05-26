@@ -1,3 +1,5 @@
+@forward "fonts";
+@forward "./variables";
 @use "./components/navbar.scss";
 @use "./components/footer.scss";
 @use "./components/products.scss";
@@ -6,4 +8,4 @@
 @use "./components/cart.scss";
 @use "./main.scss";
 @use "./core.scss";
-@forward "./fonts";
+@use "./components/progressBar.scss";

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useScreenWidth } from "@/app/tools/Tools";
 import { IoClose } from "react-icons/io5";
 import image from "../../assets/images/logo.png"
+import Image from "next/image";
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
@@ -19,7 +20,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar_header">
         <div className="navbar_header-logo">
-          <img onClick={() => { router.push("/") }} src={image.src} className="navbar_header-logo_img" alt="" height={50} />
+          <Image width={100} onClick={() => { router.push("/") }} src={image.src} className="navbar_header-logo_img" alt="" height={50} />
         </div>
         {screenWidth < 768 && <IconButton Icon={visibleNavbar ? IoClose : BiMenu} size={40} onClick={() => { setVisibleNavbar(!visibleNavbar) }} />}
         {<div className={`navbar_buttons ${screenWidth < 768 ? "mobile" : ""} ${visibleNavbar ? "visible" : ""}`}>
@@ -31,14 +32,12 @@ const Navbar = () => {
           <button className={`${pathname === "/categories/accessories" ? "active" : ""} sale`} onClick={() => router.push("/categories/sale")}>Wyprzedaż</button>
         </div>}
         <div className="navbar_header-buttons">
-          <IconButton disabled Icon={MdPhone} text="Kontakt" size={20} onClick={() => { }} />
-          <IconButton disabled Icon={MdPerson} text="Konto" size={20} onClick={() => { }} />
-          <IconButton Icon={MdShoppingBasket} text={`Koszyk ${cart.length}`} size={20} onClick={() => { router.push("/cart") }} />
+          <IconButton disabled Icon={MdPhone} size={40} onClick={() => { }} />
+          <IconButton disabled Icon={MdPerson} size={40} onClick={() => { }} />
+          <IconButton badgeText={String(cart.length)} Icon={MdShoppingBasket} size={40} onClick={() => { router.push("/cart") }} />
         </div>
       </div>
-
     </div>
-
   );
 };
 
