@@ -25,13 +25,14 @@ const Page = () => {
         if (sort === "asc") return a.price - b.price;
         else if (sort === "desc") return b.price - a.price;
         else if (sort === "rate") return b.rating.rate - a.rating.rate;
-        else if (sort === "sale") return (b.onSale ? 1 : 0) - (a.onSale ? 1 : 0);
+        else if (sort === "sale")
+          return (b.onSale ? 1 : 0) - (a.onSale ? 1 : 0);
         else return 0;
       })
       .filter((item) => {
         if (category === "sale") {
           return item.onSale === true;
-        } else return item.category === category
+        } else return item.category === category;
       });
     setFilteredProducts(filteredProductsNew);
   }, [sort, search]);
@@ -41,7 +42,7 @@ const Page = () => {
       filteredProducts.filter((item) => {
         if (category === "sale") {
           return item.onSale === true;
-        } else return item.category === category
+        } else return item.category === category;
       })
     );
   }, [category]);
@@ -79,7 +80,11 @@ const Page = () => {
         {filteredProducts.map((item) => (
           <ProductCard key={item.id} item={item} />
         ))}
-        {filteredProducts.length === 0 ? <span>{search !== "" ? "Brak pasujących produktów" : "Brak produktów"}</span> : null}
+        {filteredProducts.length === 0 ? (
+          <span>
+            {search !== "" ? "Brak pasujących produktów" : "Brak produktów"}
+          </span>
+        ) : null}
       </div>
     </>
   );

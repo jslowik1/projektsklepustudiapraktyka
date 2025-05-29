@@ -17,7 +17,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
   if (!options || options.length === 0) return null;
   return (
     <div className="custom-dropdown-container">
-      {label ? <span>{label}</span> : null}
+      {label ? <span style={{ margin: "5px 0" }}>{label}</span> : null}
       <select
         value={value}
         onChange={(e) => onChange(e.target.value as "asc" | "desc")}

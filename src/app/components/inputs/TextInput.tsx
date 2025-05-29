@@ -1,16 +1,24 @@
+import { HTMLInputTypeAttribute } from "react";
+
 interface ITextInputProps {
   label?: string;
   onChange: (e: string) => void;
-  placeholder?: string
+  placeholder?: string;
+  type?: HTMLInputTypeAttribute;
 }
 
-const TextInput: React.FC<ITextInputProps> = ({ label, onChange, placeholder }) => {
+const TextInput: React.FC<ITextInputProps> = ({
+  label,
+  onChange,
+  placeholder,
+  type,
+}) => {
   return (
     <div className="text-input">
-      {label ? <span>{label}</span> : null}
+      {label ? <span style={{ margin: "5px 0" }}>{label}</span> : null}
       <input
         className="custom-input"
-        type="text"
+        type={type ?? "text"}
         placeholder={placeholder ? placeholder : ""}
         onChange={(e) => onChange(e.target.value ?? "")}
       />

@@ -1,13 +1,13 @@
 .navbar {
-  background-color: #1A1A2E;
+  background-color: #1a1a2e;
   margin: 0;
   padding: 10px;
-  color: #EAEAEA;
+  color: #eaeaea;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  border-bottom: 2px solid #FF2E88;
+  border-bottom: 2px solid #ff2e88;
 
   &_header {
     display: flex;
@@ -45,7 +45,7 @@
     .sale {
       -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
       animation: heartbeat 1.5s ease-in-out infinite both;
-      background-color: #FF2E88;
+      background-color: #ff2e88;
     }
 
     &.mobile {
@@ -60,12 +60,11 @@
     }
 
     button {
-      border: 2px solid #FF2E88;
+      border: 2px solid #ff2e88;
       background: transparent;
       font-weight: bold;
-      color: #EAEAEA;
+      color: #eaeaea;
       padding: 0.4rem 1rem;
-      font-family: 'Rajdhani', sans-serif;
       font-size: 1rem;
       letter-spacing: 1px;
       text-transform: uppercase;
@@ -74,14 +73,34 @@
       transition: all 0.25s ease-in-out;
 
       &.active {
-        background-color: #FF2E88;
+        background-color: #ff2e88;
       }
     }
 
     button:hover {
-      background-color: #FF2E88;
+      background-color: #ff2e88;
     }
+  }
+}
 
+.account-popover {
+  background-color: #ff2e88;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.55);
+  font-size: 16px;
+  max-width: 200px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  button {
+    padding: 10px;
+    background-color: #1a1a2e;
+    color: white;
+    border: none;
+    font-weight: bold;
+    border-radius: 0.75rem;
+    cursor: pointer;
   }
 }
 

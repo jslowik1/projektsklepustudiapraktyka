@@ -1,11 +1,16 @@
 @use "./variables" as *;
 
-.mainbody {
-  padding: 0;
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+  font-family: "Exo 2", sans-serif;
+}
+
+.mainbody {
   font-weight: bold;
   width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh + 175px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -48,7 +53,8 @@
   padding: 20px;
 
   .sales-container {
-    width: 100%;
+    width: fit-content;
+    margin-top: 5px;
     height: 200px;
     border-radius: 2rem;
     background-color: #504d7a;
@@ -64,7 +70,19 @@
     .sale {
       background-image: url("../../assets/images/sale.png");
       height: 200px;
-      flex: 1;
+      width: 300px;
+      background-size: cover;
+      background-position: center;
+      transition: all 0.25s ease-out;
+
+      &:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+    .sale:nth-child(2) {
+      background-image: url("../../assets/images/shipping.png");
+      height: 200px;
       background-size: cover;
       background-position: center;
       transition: all 0.25s ease-out;
@@ -111,6 +129,19 @@
           border-radius: 0 0 0.75rem 0;
         }
       }
+    }
+  }
+}
+
+.animate-spin {
+  font-size: 30px;
+  animation: spin 2s linear infinite;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
     }
   }
 }
