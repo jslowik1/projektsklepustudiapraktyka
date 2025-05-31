@@ -48,9 +48,8 @@ const Navbar = () => {
         )}
         {
           <div
-            className={`navbar_buttons ${screenWidth < 768 ? "mobile" : ""} ${
-              visibleNavbar ? "visible" : ""
-            }`}
+            className={`navbar_buttons ${screenWidth < 768 ? "mobile" : ""} ${visibleNavbar ? "visible" : ""
+              }`}
           >
             <button
               className={pathname === "/categories/keyboard" ? "active" : ""}
@@ -83,9 +82,8 @@ const Navbar = () => {
               Akcesoria
             </button>
             <button
-              className={`${
-                pathname === "/categories/accessories" ? "active" : ""
-              } sale`}
+              className={`${pathname === "/categories/accessories" ? "active" : ""
+                } sale`}
               onClick={() => router.push("/categories/sale")}
             >
               Wyprzedaż
@@ -93,13 +91,14 @@ const Navbar = () => {
           </div>
         }
         <div className="navbar_header-buttons">
-          <IconButton disabled Icon={MdPhone} size={40} onClick={() => {}} />
+          <IconButton disabled Icon={MdPhone} size={40} onClick={() => { }} />
           <div ref={refs.setReference}>
             <IconButton
               Icon={MdPerson}
               size={40}
               onClick={() => {
-                setAccountDialogShow(!accountDialogShow);
+                router.push("/login")
+                // setAccountDialogShow(!accountDialogShow);
               }}
             />
           </div>
@@ -131,9 +130,9 @@ const Navbar = () => {
           onDimiss={() => setLoginModalVisible(false)}
         >
           <div>
-            <TextInput label="Email" onChange={() => {}} />
-            <TextInput label="Hasło" type="password" onChange={() => {}} />
-            <button onClick={() => {}}>Zaloguj</button>
+            <TextInput label="Email" onChange={() => { }} />
+            <TextInput label="Hasło" type="password" onChange={() => { }} />
+            <button onClick={() => { }}>Zaloguj</button>
           </div>
         </Modal>
       )}

@@ -12,9 +12,20 @@ const Page = () => {
   const { category } = useParams<{ category: string }>();
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState<string>("");
+  const [fetchedProducts, setFetchedProducts] = useState<IProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
 
-  const [filteredProducts, setFilteredProducts] =
-    useState<IProduct[]>(products);
+  useEffect(() => {
+    async function fetchItems() {
+      const res = await fetch("/api/items");
+      const data = await res.json();
+      setFetchedProducts(data);
+    }
+
+    fetchItems();
+  }, []);
+
+  console.log(fetchedProducts);
 
   useEffect(() => {
     const filteredProductsNew = products
