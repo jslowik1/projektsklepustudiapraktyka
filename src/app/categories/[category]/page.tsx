@@ -25,8 +25,6 @@ const Page = () => {
     fetchItems();
   }, []);
 
-  console.log(fetchedProducts);
-
   useEffect(() => {
     const filteredProductsNew = products
       .filter((product) =>

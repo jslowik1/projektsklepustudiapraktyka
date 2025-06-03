@@ -5,13 +5,11 @@ import { usePathname, useRouter } from "next/navigation";
 import { useCart } from "@/app/context/CartProvider";
 import { BiMenu } from "react-icons/bi";
 import { useState } from "react";
-import { useScreenWidth } from "@/app/tools/Tools";
 import { IoClose } from "react-icons/io5";
 import image from "../../assets/images/logo.png";
 import Image from "next/image";
-import Modal from "../modal/Modal";
-import TextInput from "../inputs/TextInput";
-import { useFloating } from "@floating-ui/react";
+import { useAuth } from "@/app/context/AuthProvider";
+import { useScreenWidth } from "@/app/tools/useScreenWidth";
 
 const Navbar = () => {
   const router = useRouter();
@@ -19,9 +17,8 @@ const Navbar = () => {
   const { cart } = useCart();
   const [visibleNavbar, setVisibleNavbar] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
-  const [loginModalVisible, setLoginModalVisible] = useState<boolean>(false);
-  const [accountDialogShow, setAccountDialogShow] = useState<boolean>(false);
-  const { refs, floatingStyles } = useFloating();
+  const { user } = useAuth();
+
   return (
     <div className="navbar">
       <div className="navbar_header">
@@ -92,27 +89,16 @@ const Navbar = () => {
         }
         <div className="navbar_header-buttons">
           <IconButton disabled Icon={MdPhone} size={40} onClick={() => { }} />
-          <div ref={refs.setReference}>
+          <div>
             <IconButton
               Icon={MdPerson}
               size={40}
               onClick={() => {
-                router.push("/login")
-                // setAccountDialogShow(!accountDialogShow);
+                if (user) router.push("/account")
+                else router.push("/login")
               }}
             />
           </div>
-          {accountDialogShow && (
-            <div
-              ref={refs.setFloating}
-              style={floatingStyles}
-              className="account-popover"
-            >
-              Nie jesteś zalogowany
-              <button>Zaloguj się</button>
-              <button>Zarejestuj się</button>
-            </div>
-          )}
           <IconButton
             badgeText={String(cart.length)}
             Icon={MdShoppingBasket}
@@ -123,19 +109,6 @@ const Navbar = () => {
           />
         </div>
       </div>
-      {loginModalVisible && (
-        <Modal
-          headerText="Logowanie"
-          width={400}
-          onDimiss={() => setLoginModalVisible(false)}
-        >
-          <div>
-            <TextInput label="Email" onChange={() => { }} />
-            <TextInput label="Hasło" type="password" onChange={() => { }} />
-            <button onClick={() => { }}>Zaloguj</button>
-          </div>
-        </Modal>
-      )}
     </div>
   );
 };

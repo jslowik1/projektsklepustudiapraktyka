@@ -14,6 +14,10 @@
   height: 250px;
   max-width: 400px;
   color: default;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  margin-bottom: 10px;
 
   &:hover {
     // box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
@@ -40,10 +44,6 @@
     &.mousepad {
       background-image: url("../../../images/mousepad.png");
     }
-
-    background-position: center;
-    background-size: cover;
-    margin-bottom: 10px;
   }
 
   &_desc {
@@ -85,7 +85,6 @@
     }
   }
 
-  position: relative;
 
   .sale-badge {
     position: absolute;

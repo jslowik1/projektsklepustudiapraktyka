@@ -1,0 +1,80 @@
+.account-panel {
+    .side-nav {
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        flex-basis: 10%;
+        border-right: 2px solid #ff2e88;
+
+        &_item {
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 10px;
+
+            &.active {
+                background-color: #ff2e88;
+            }
+
+            &:hover:not(.active) {
+                background-color: #ff2e8980;
+            }
+        }
+    }
+
+    .inside {
+        display: flex;
+        gap: 20px;
+        border-radius: 0.75rem;
+        border: 2px solid #ff2e88;
+        padding: 0;
+    }
+
+    .account-inside {
+        padding: 10px;
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            padding: 10px 0px;
+
+            button {
+                border: 2px solid #ff2e88;
+                background: transparent;
+                font-weight: bold;
+                color: #eaeaea;
+                padding: 0.4rem 1rem;
+                font-size: 1rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                border-radius: 0.75rem;
+                cursor: pointer;
+                transition: all 0.25s ease-in-out;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                &.active {
+                    background-color: #ff2e88;
+                }
+            }
+
+            button:hover {
+                background-color: #ff2e88;
+            }
+        }
+
+        .products {
+            .product {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+
+                border-bottom: 2px solid #ff2e88;
+                justify-content: space-between;
+            }
+        }
+    }
+}

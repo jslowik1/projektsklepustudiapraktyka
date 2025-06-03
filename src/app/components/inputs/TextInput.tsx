@@ -6,6 +6,7 @@ interface ITextInputProps {
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
+  value?: string
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -13,7 +14,8 @@ const TextInput: React.FC<ITextInputProps> = ({
   onChange,
   placeholder,
   type,
-  disabled
+  disabled,
+  value
 }) => {
   return (
     <div className="text-input">
@@ -24,6 +26,7 @@ const TextInput: React.FC<ITextInputProps> = ({
         type={type ?? "text"}
         placeholder={placeholder ? placeholder : ""}
         onChange={(e) => onChange(e.target.value ?? "")}
+        value={value}
       />
     </div>
   );
