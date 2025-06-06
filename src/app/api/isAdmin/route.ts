@@ -1,11 +1,12 @@
 // src/app/api/isAdmin/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getAuth } from "firebase-admin/auth";
-
+import { app } from "@/lib/firebase-admin";
 export async function GET(req: NextRequest) {
+  if (!app) return;
   try {
     const authToken = req.headers.get("Authorization")?.split("Bearer ")[1];
-    console.log(authToken);
+
     if (!authToken) {
       return NextResponse.json(
         { isAdmin: false, error: "Brak tokena" },

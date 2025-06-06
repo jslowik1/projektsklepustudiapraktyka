@@ -59,6 +59,7 @@
                 &.active {
                     background-color: #ff2e88;
                 }
+
             }
 
             button:hover {
@@ -74,6 +75,47 @@
 
                 border-bottom: 2px solid #ff2e88;
                 justify-content: space-between;
+            }
+        }
+
+        .account-info-buttons {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0px;
+
+            button {
+                border: 2px solid #ff2e88;
+                background: transparent;
+                font-weight: bold;
+                color: #eaeaea;
+                padding: 0.4rem 1rem;
+                font-size: 1rem;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                border-radius: 0.75rem;
+                cursor: pointer;
+                transition: all 0.25s ease-in-out;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                &.active {
+                    background-color: #ff2e88;
+                }
+
+                &.disabled {
+                    border-color: gray;
+                    color: gray;
+                    cursor: default;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+                }
+            }
+
+            button:hover {
+                background-color: #ff2e88;
             }
         }
     }

@@ -8,8 +8,10 @@ import {
   ReactNode,
 } from "react";
 import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { auth } from "@/lib/firebase";
+import { auth, db } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
+import { doc, getDoc } from "firebase/firestore";
+import { UserAddress } from "../model/User";
 
 interface AuthContextType {
   user: User | null;
@@ -17,12 +19,21 @@ interface AuthContextType {
   isAdmin: boolean;
   adminLoading: boolean;
   logout: () => Promise<void>;
+  userData: UserData | undefined
+}
+
+
+export interface UserData {
+  displayName: string;
+  phoneNumber: string;
+  address: UserAddress;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [userData, setUserData] = useState<UserData>();
   const [loading, setLoading] = useState(true);
 
   const [isAdmin, setIsAdmin] = useState(false);
@@ -39,6 +50,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const getItems = async () => {
+      if (user) {
+        console.log(user.uid);
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        console.log(docSnap.data());
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const userData = {
+            phoneNumber: data.phoneNumber,
+            address: data.address,
+            displayName: data.displayName
+          }
+          setUserData(userData);
+        }
+      }
+    }
+    void getItems()
+  }, [user])
 
   // Sprawdzenie czy user jest adminem
   useEffect(() => {
@@ -78,7 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, isAdmin, adminLoading, logout }}
+      value={{ user, loading, isAdmin, adminLoading, logout, userData }}
     >
       {children}
     </AuthContext.Provider>

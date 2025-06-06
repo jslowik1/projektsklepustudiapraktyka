@@ -5,6 +5,7 @@ import TextInput from "../inputs/TextInput";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Spinner from "../inputs/Spinner";
+import Link from "next/link";
 
 const Footer = () => {
   const [newsletterMail, setNewsletterMail] = useState<string>("");
@@ -45,11 +46,11 @@ const Footer = () => {
       </div>
       <div className="footer_column">
         <h3>Kategorie</h3>
-        <a href="">Klawiatury</a>
-        <a href="">Myszki</a>
-        <a href="">Podkładki</a>
-        <a href="">Mikorofony</a>
-        <a href="">Akcesoria</a>
+        <Link href="/categories/keyboard">Klawiatury</Link>
+        <Link href="/categories/mouse">Myszki</Link>
+        <Link href="/categories/mousepad">Podkładki</Link>
+        <Link href="/categories/microphone">Mikorofony</Link>
+        <Link href="/categories/accessories">Akcesoria</Link>
       </div>
       <div className="footer_column">
         <h3>Zapisz się do newslettera</h3>

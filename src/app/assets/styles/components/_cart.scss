@@ -55,8 +55,22 @@
           font-weight: bold;
           cursor: pointer;
           color: white;
+
+          &.disabled {
+            background-color: grey;
+            cursor: default;
+          }
         }
       }
+    }
+
+    .checkout-address {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+      margin: 0 auto;
+      width: 25%;
     }
   }
 }

@@ -6,14 +6,18 @@ import { useCart } from "../context/CartProvider";
 
 import { FaCheck } from "react-icons/fa";
 import ProgressBar from "../components/inputs/ProgressBar";
+import RadioGroup from "../components/inputs/RadioGroup";
+import { usePathname, useRouter } from "next/navigation";
+import path from "path";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { cart } = useCart();
   const [code, setCode] = useState<string>("");
   const [discount, setDiscount] = useState<number>(0);
-  const [isApplied, setIsApplied] = useState<boolean>(false);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
-  const [shipping, setShipping] = useState<number>(15);
+  const [shipping, setShipping] = useState<{ key: string, value: number }>({ key: "dpd", value: 20 });
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     setTotalItems(
@@ -34,10 +38,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setTotal(
       totalItems +
-        (totalItems > 500 ? 0 : shipping) -
-        totalItems * (discount / 100)
+      (totalItems > 500 ? 0 : shipping.value) -
+      totalItems * (discount / 100)
     );
   }, [discount, totalItems, shipping]);
+
+
+  const handleProceed = () => {
+    if (cart.length > 0 && pathname === "/cart") router.push("cart/checkout")
+    else if (cart.length > 0 && pathname === "/cart/checkout") {
+      router.push("/cart/payment")
+    }
+  }
 
   return (
     <div className="product-main">
@@ -61,15 +73,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 {totalItems < 500 && (
                   <span className="cart-summary-value-item">
                     <span>Dostawa</span>{" "}
-                    {totalItems > 500 ? 0 : shipping.toFixed(2)} zł{" "}
+                    {totalItems > 500 ? 0 : shipping.value.toFixed(2)} zł{" "}
                   </span>
                 )}
                 <ProgressBar
                   label={
                     totalItems < 500
                       ? `Do darmowej dostawy brakuje ${(
-                          500 - totalItems
-                        ).toFixed(2)} zł`
+                        500 - totalItems
+                      ).toFixed(2)} zł`
                       : "Darmowa dostawa 👏"
                   }
                   value={totalItems > 500 ? 100 : (totalItems / 500) * 100}
@@ -92,8 +104,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                     Icon={FaCheck}
                   />
                 </div>
-                <button className="cart-summary-value-button">
-                  Wybierz sposób dostawy
+                <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+                  <RadioGroup selected={shipping.key} onChange={(o) => setShipping({ key: o.key, value: Number(o.value) })} options={[{ value: 20, key: "dpd", label: "DPD", checked: true }, { value: 15, label: "InPost", key: "inpost", checked: false }, { value: 0, label: "Odbiór osobisty", key: "personal", checked: false }]} />
+                </div>
+                <button onClick={() => { handleProceed() }} className={`cart-summary-value-button ${cart.length <= 0 ? "disabled" : ""}`}>
+                  Wprowadź adres odbiorcy
                 </button>
               </div>
             </div>

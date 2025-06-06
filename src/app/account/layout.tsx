@@ -21,9 +21,8 @@ const Layout = ({ children }) => {
             onClick={() => {
               handleNavigate("/account");
             }}
-            className={`side-nav_item ${
-              pathname === "/account" ? "active" : ""
-            }`}
+            className={`side-nav_item ${pathname === "/account" ? "active" : ""
+              }`}
           >
             <MdPerson size={20} />
             Twoje dane
@@ -32,9 +31,8 @@ const Layout = ({ children }) => {
             onClick={() => {
               handleNavigate("/account/orders");
             }}
-            className={`side-nav_item ${
-              pathname === "/account/orders" ? "active" : ""
-            }`}
+            className={`side-nav_item ${pathname.includes("/account/orders") ? "active" : ""
+              }`}
           >
             <MdListAlt size={20} />
             Twoje zamówienia
@@ -44,9 +42,8 @@ const Layout = ({ children }) => {
               onClick={() => {
                 handleNavigate("/account/admin");
               }}
-              className={`side-nav_item ${
-                pathname === "/account/admin" ? "active" : ""
-              }`}
+              className={`side-nav_item ${pathname === "/account/admin" ? "active" : ""
+                }`}
             >
               <MdAdminPanelSettings size={20} />
               Panel administracyjny
