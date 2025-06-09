@@ -30,51 +30,63 @@ const Footer = () => {
   };
 
   return (
-    <div className="footer">
-      <div className="footer_column">
-        <h3>Informacje</h3>
-        <a href="">O nas</a>
-        <a href="">Regulamin</a>
-        <a href="">Polityka prywatności</a>
-        <a href="">Kontakt</a>
-      </div>
-      <div className="footer_column">
-        <h3>Obsługa</h3>
-        <a href="">Dostawa i płatności</a>
-        <a href="">Zwroty</a>
-        <a href="">FAQ</a>
-      </div>
-      <div className="footer_column">
-        <h3>Kategorie</h3>
-        <Link href="/categories/keyboard">Klawiatury</Link>
-        <Link href="/categories/mouse">Myszki</Link>
-        <Link href="/categories/mousepad">Podkładki</Link>
-        <Link href="/categories/microphone">Mikorofony</Link>
-        <Link href="/categories/accessories">Akcesoria</Link>
-      </div>
-      <div className="footer_column">
-        <h3>Zapisz się do newslettera</h3>
-        <span>
-          Zapisz się do newslettera i otrzymasz informacje o najnowszych
-          promocjach i ofertach.
-        </span>
-        <div className="newsletter">
-          <TextInput
-            placeholder="Twój adres email"
-            onChange={setNewsletterMail}
-          />
-          {!newsletterLoading ? (
-            <IconButton
-              disabled={newsletterMail === "" || !newsletterMail.includes("@")}
-              Icon={FaCheck}
-              onClick={handleNewsletter}
+    <>
+      <div className="footer">
+        <div className="footer_column">
+          <h3>Informacje</h3>
+          <a href="">O nas</a>
+          <a href="">Regulamin</a>
+          <a href="">Polityka prywatności</a>
+          <a href="">Kontakt</a>
+        </div>
+        <div className="footer_column">
+          <h3>Obsługa</h3>
+          <a href="">Dostawa i płatności</a>
+          <a href="">Zwroty</a>
+          <a href="">FAQ</a>
+        </div>
+        <div className="footer_column">
+          <h3>Kategorie</h3>
+          <Link href="/categories/keyboard">Klawiatury</Link>
+          <Link href="/categories/mouse">Myszki</Link>
+          <Link href="/categories/mousepad">Podkładki</Link>
+          <Link href="/categories/microphone">Mikorofony</Link>
+          <Link href="/categories/accessories">Akcesoria</Link>
+        </div>
+        <div className="footer_column">
+          <h3>Zapisz się do newslettera</h3>
+          <span>
+            Zapisz się do newslettera i otrzymasz informacje o najnowszych
+            promocjach i ofertach.
+          </span>
+          <div className="newsletter">
+            <TextInput
+              placeholder="Twój adres email"
+              onChange={setNewsletterMail}
             />
-          ) : (
-            <Spinner size={30} />
-          )}
+            {!newsletterLoading ? (
+              <IconButton
+                disabled={newsletterMail === "" || !newsletterMail.includes("@")}
+                Icon={FaCheck}
+                onClick={handleNewsletter}
+              />
+            ) : (
+              <Spinner size={30} />
+            )}
+          </div>
+
+          <div style={{ maxWidth: "400px" }}>
+            <p>
+              © Copyright 2025 - All rights reserved. <br />
+              <a href="https://github.com/jslowik1">Jakub Słowik</a>
+            </p>
+            <p>Kod projektu: <a href="https://github.com/jslowik1/projektsklepustudiapraktyka">GitHub</a></p>
+            <p>Jest to wersja demonstracyjna sklepu. Aplikacja jest wykorzystywana tylko w celach edukacyjnych. Zamówienia nie zostaną zrealizowane. <br />
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
