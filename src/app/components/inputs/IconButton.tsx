@@ -13,7 +13,7 @@ interface IIconButtonProps {
 
 const IconButton: React.FC<IIconButtonProps> = ({ Icon, onClick, size, text, disabled, badgeText }) => {
     return (
-        <button className={`icon_button ${disabled ? "disabled" : ""}`} onClick={e => { e.preventDefault(); if (!disabled) onClick(); }}>
+        <button type="button" className={`icon_button ${disabled ? "disabled" : ""}`} onClick={e => { e.preventDefault(); if (!disabled) onClick(); }}>
             {badgeText && <div className="badge">{<span>{badgeText}</span>}</div>}
             <Icon size={size} />
             {text ?? text}

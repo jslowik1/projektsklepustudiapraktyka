@@ -143,8 +143,9 @@ const LoginForm = () => {
           )}
 
           <button
+            type="submit"
             disabled={isLoading || !isValid}
-            onClick={() => (isRegister ? handleRegister() : handleLogin())}
+            onClick={(e) => { e.preventDefault(); if (isRegister) handleRegister(); else handleLogin(); }}
             className="login-button"
           >
             {isLoading ? (
@@ -156,7 +157,7 @@ const LoginForm = () => {
             )}
           </button>
         </div>
-      </form>
+      </form >
 
       <div className="login-form_register">
         <p>Nie masz konta?</p>
@@ -169,7 +170,7 @@ const LoginForm = () => {
           {isRegister ? "Zaloguj się" : "Zarejestruj się"}
         </button>
       </div>
-    </div>
+    </div >
   );
 };
 
