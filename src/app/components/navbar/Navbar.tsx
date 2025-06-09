@@ -34,7 +34,7 @@ const Navbar = () => {
             height={50}
           />
         </div>
-        {screenWidth < 768 && (
+        {(screenWidth && screenWidth < 768) && (
           <IconButton
             Icon={visibleNavbar ? IoClose : BiMenu}
             size={40}
@@ -45,7 +45,7 @@ const Navbar = () => {
         )}
         {
           <div
-            className={`navbar_buttons ${screenWidth < 768 ? "mobile" : ""} ${visibleNavbar ? "visible" : ""
+            className={`navbar_buttons ${(screenWidth && screenWidth < 768) ? "mobile" : ""} ${visibleNavbar ? "visible" : ""
               }`}
           >
             <button

@@ -33,6 +33,7 @@ const LoginForm = () => {
   useEffect(() => {
     console.log(isValid);
     setIsValid(isValidForm());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password, repeatPassword]);
 
   const handleLogin = () => {

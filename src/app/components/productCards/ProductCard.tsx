@@ -36,14 +36,14 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
                     setImage(items[0].default.src);
             })
         }
-    }, [item.image])
+    }, [image, item.image])
 
     useEffect(() => {
         if (cart.find((cartItem) => cartItem.id === item.id))
             setInCart(true);
         else
             setInCart(false);
-    }, [cart])
+    }, [cart, item.id])
 
     if (item)
         return (<div className="product-card">

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { BiBox } from "react-icons/bi";
 import { MdPerson } from "react-icons/md";
 
-const Layout = ({ children }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const router = useRouter();
   const { isAdmin, adminLoading } = useAuth();
   return adminLoading ? (

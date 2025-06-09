@@ -12,18 +12,17 @@ const Page = () => {
   const { category } = useParams<{ category: string }>();
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState<string>("");
-  const [fetchedProducts, setFetchedProducts] = useState<IProduct[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
 
-  useEffect(() => {
-    async function fetchItems() {
-      const res = await fetch("/api/items");
-      const data = await res.json();
-      setFetchedProducts(data);
-    }
+  // useEffect(() => {
+  //   async function fetchItems() {
+  //     const res = await fetch("/api/items");
+  //     const data = await res.json();
+  //     setFetchedProducts(data);
+  //   }
 
-    fetchItems();
-  }, []);
+  //   fetchItems();
+  // }, []);
 
   useEffect(() => {
     const filteredProductsNew = products
@@ -44,7 +43,7 @@ const Page = () => {
         } else return item.category === category;
       });
     setFilteredProducts(filteredProductsNew);
-  }, [sort, search]);
+  }, [sort, search, category]);
 
   useEffect(() => {
     setFilteredProducts(
@@ -54,7 +53,7 @@ const Page = () => {
         } else return item.category === category;
       })
     );
-  }, [category]);
+  }, [category, filteredProducts]);
 
   return (
     <>

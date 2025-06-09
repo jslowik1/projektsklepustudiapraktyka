@@ -2,7 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { MdPerson, MdListAlt, MdAdminPanelSettings } from "react-icons/md";
 import { useAuth } from "../context/AuthProvider";
-const Layout = ({ children }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();
   const router = useRouter();
   const { isAdmin } = useAuth();
