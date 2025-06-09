@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { IProduct } from "@/app/model/IProduct";
 import IconButton from "../inputs/IconButton";
@@ -36,14 +37,14 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
                     setImage(items[0].default.src);
             })
         }
-    }, [image, item.image])
+    }, [item.image])
 
     useEffect(() => {
         if (cart.find((cartItem) => cartItem.id === item.id))
             setInCart(true);
         else
             setInCart(false);
-    }, [cart, item.id])
+    }, [cart])
 
     if (item)
         return (<div className="product-card">

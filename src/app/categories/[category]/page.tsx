@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { products } from "@/app/assets/products";
 import Dropdown from "@/app/components/inputs/Dropdown";
@@ -13,16 +14,6 @@ const Page = () => {
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
-
-  // useEffect(() => {
-  //   async function fetchItems() {
-  //     const res = await fetch("/api/items");
-  //     const data = await res.json();
-  //     setFetchedProducts(data);
-  //   }
-
-  //   fetchItems();
-  // }, []);
 
   useEffect(() => {
     const filteredProductsNew = products
@@ -43,7 +34,7 @@ const Page = () => {
         } else return item.category === category;
       });
     setFilteredProducts(filteredProductsNew);
-  }, [sort, search, category]);
+  }, [sort, search]);
 
   useEffect(() => {
     setFilteredProducts(
@@ -53,7 +44,7 @@ const Page = () => {
         } else return item.category === category;
       })
     );
-  }, [category, filteredProducts]);
+  }, [category]);
 
   return (
     <>
