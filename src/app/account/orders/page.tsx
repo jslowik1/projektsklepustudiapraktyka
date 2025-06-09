@@ -1,48 +1,45 @@
 "use client"
 import { useAuth } from "@/app/context/AuthProvider";
 import { Order } from "@/app/model/Order";
-import { db } from "@/lib/firebase";
-import { collection, doc, getDoc, getDocs, query, Timestamp, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import OrderCard from "./OrderCard";
+import { useGetUserOrders } from "@/hooks/query/useGetUserOrders";
+import Spinner from "@/app/components/inputs/Spinner";
+import { translateStatus } from "@/app/tools/Tools";
+import IconButton from "@/app/components/inputs/IconButton";
+import { GrClose } from "react-icons/gr";
 
 const Page = () => {
     const { user } = useAuth();
     const [orders, setOrders] = useState<Order[]>([]);
+    const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+    const userOrders = useGetUserOrders(user);
 
     useEffect(() => {
-        const getItems = async () => {
-            if (user) {
-                const userRef = doc(db, "users", user.uid);
-                const ordersRef = collection(db, "orders");
-                const q = query(ordersRef, where("user", "==", userRef));
-                const querySnapshot = await getDocs(q);
-                const userSnap = await getDoc(userRef);
-                if (userSnap.data() === undefined) return
-                const orders: Order[] = querySnapshot.docs.map(doc => {
-                    const data = doc.data();
-                    const newUser = userSnap.data();
-
-                    return {
-                        id: doc.id,
-                        user: newUser?.displayName ?? "",
-                        products: data.products,
-                        orderDate: new Timestamp(data.orderDate.seconds, data.orderDate.nanoseconds).toDate(),
-                        shippingAddress: data.shippingAddress
-                    }
-                });
-
-                setOrders(orders);
-            }
+        if (userOrders.data) {
+            setOrders(userOrders.data.sort((a, b) => b.orderDate.getTime() - a.orderDate.getTime()));
         }
-        void getItems()
+    }, [userOrders.data, userOrders.status])
 
-    }, [user]);
+
     return (
-        <div className="account-inside">
-            <h1>Orders</h1>
-            {orders && orders.map(order => <OrderCard order={order} key={order.id} />)}
-        </div>);
+        <div className="account-inside orders">
+
+            <h1>Zamówienia</h1>
+            <div className="orders-container">
+                <div className="orders-list">
+                    {userOrders.isLoading ? <Spinner size={30} /> : null}
+                    {orders && orders.map(order => <OrderCard onSelect={setSelectedOrder} order={order} key={order.id} />)}
+                    {userOrders.isSuccess && orders.length === 0 ? <h2>Nie złóżyłeś jeszcze żadnego zamówienia</h2> : null}
+                </div>
+                {selectedOrder && <div className="order-info">
+                    <IconButton Icon={GrClose} size={30} onClick={() => setSelectedOrder(null)} />
+                    <h2>Zamówienie {selectedOrder.id}</h2>
+                    <h3>Status zamówienia: {translateStatus(selectedOrder.status)}</h3>
+                </div>}
+            </div>
+        </div>
+    );
 }
 
 export default Page;

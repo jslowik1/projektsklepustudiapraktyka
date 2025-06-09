@@ -1,6 +1,15 @@
+"use client"
 import { AuthProvider } from "./AuthProvider";
 import { CartProvider } from "./CartProvider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
-    return <AuthProvider><CartProvider>{children}</ CartProvider></AuthProvider>;
+    const queryClient = new QueryClient();
+    return <AuthProvider>
+        <CartProvider>
+            <QueryClientProvider client={queryClient}>
+                {children}
+            </QueryClientProvider>
+        </ CartProvider>
+    </AuthProvider>;
 };

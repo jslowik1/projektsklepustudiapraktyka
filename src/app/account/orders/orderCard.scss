@@ -1,0 +1,22 @@
+.order-card {
+    display: flex;
+    gap: 10px;
+    border: 2px solid #ff2e88;
+    border-radius: 0.75rem;
+    padding: 10px;
+    background-color: #1a1a2e;
+    color: white;
+    margin: 10px 0px;
+    width: 500px;
+    justify-content: space-between;
+
+    &_info {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .icon_button {
+        margin: 0px 20px;
+    }
+}

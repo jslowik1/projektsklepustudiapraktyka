@@ -8,7 +8,7 @@ import { FaCheck } from "react-icons/fa";
 import ProgressBar from "../components/inputs/ProgressBar";
 import RadioGroup from "../components/inputs/RadioGroup";
 import { usePathname, useRouter } from "next/navigation";
-import path from "path";
+
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { cart } = useCart();
   const [code, setCode] = useState<string>("");
@@ -18,6 +18,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const [shipping, setShipping] = useState<{ key: string, value: number }>({ key: "dpd", value: 20 });
   const router = useRouter();
   const pathname = usePathname();
+  const [hideSummary, setHideSummary] = useState<boolean>(false);
 
   useEffect(() => {
     setTotalItems(
@@ -47,6 +48,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const handleProceed = () => {
     if (cart.length > 0 && pathname === "/cart") router.push("cart/checkout")
     else if (cart.length > 0 && pathname === "/cart/checkout") {
+      setHideSummary(true)
       router.push("/cart/payment")
     }
   }
@@ -58,7 +60,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <h1>Koszyk</h1>
           <div className="cart-container">
             {children}
-            <div className="cart-summary">
+            {hideSummary !== true && <div className="cart-summary">
               <span>Podsumowanie</span>
               <div className="cart-summary-value">
                 <span className="cart-summary-value-item">
@@ -111,7 +113,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   Wprowadź adres odbiorcy
                 </button>
               </div>
-            </div>
+            </div>}
           </div>
         </div>
       </div>

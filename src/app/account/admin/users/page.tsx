@@ -1,38 +1,27 @@
 "use client";
 
 import Spinner from "@/app/components/inputs/Spinner";
+import { useGetUsers } from "@/hooks/query/useGetUsers";
 import { useEffect, useState } from "react";
-import { CgAdd } from "react-icons/cg";
 const Page = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [users, seUsers] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  async function fetchUsers() {
-    setIsLoading(true);
-    const res = await fetch("/api/users");
-    const data = await res.json();
+  const [users, setUsers] = useState<any[]>([]);
 
-    setIsLoading(false);
-    seUsers(data);
-  }
+  const usersQuery = useGetUsers();
+
   useEffect(() => {
-    fetchUsers();
-  }, []);
-
+    if (usersQuery.data) {
+      setUsers(usersQuery.data);
+    }
+  }, [usersQuery.data, usersQuery.status])
   return (
     <div className="products">
-      <div className="buttons">
-        <button>
-          <CgAdd size={20} />
-          Dodaj przedmiot
-        </button>
-      </div>
       <div>
-        {isLoading ? <Spinner size={30} /> : null}
+        {usersQuery.isLoading ? <Spinner size={30} /> : null}
         {users && users.length
           ? users.map((user) => {
-              return <p key={user.id}>{user.email}</p>;
-            })
+            return <p key={user.id}>{user.email}</p>;
+          })
           : null}
       </div>
     </div>

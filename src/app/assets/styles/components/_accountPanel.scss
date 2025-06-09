@@ -118,5 +118,40 @@
                 background-color: #ff2e88;
             }
         }
+
+
+        &.orders {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            .orders-container {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                width: 100%;
+
+                .order-info {
+                    flex: 1;
+                    border: 2px solid #ff2e88;
+                    border-radius: 0.75rem;
+                    padding: 10px;
+                    background-color: #1a1a2e;
+                    color: white;
+                    margin: 10px 0px;
+                    width: 500px;
+                    justify-content: space-between;
+                    position: relative;
+
+                    .icon_button {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                    }
+                }
+            }
+        }
+
+
     }
 }

@@ -50,7 +50,7 @@ const Layout = ({ children }) => {
             </div>
           )}
         </div>
-        <div className="main">{children}</div>
+        <div className="main" style={{ width: "100%" }}>{children}</div>
       </div>
     </div>
   );

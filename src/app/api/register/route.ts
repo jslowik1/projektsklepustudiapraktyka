@@ -25,6 +25,9 @@ export async function POST(req: Request) {
         await setDoc(doc(db, "users", userRecord.uid), {
           id: userRecord.uid,
           email: email,
+          address: {
+            country: "Polska"
+          }
         });
         return NextResponse.json({
           message: "Użytkownik utworzony",

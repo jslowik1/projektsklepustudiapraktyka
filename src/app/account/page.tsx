@@ -49,7 +49,7 @@ const Page = () => {
         if (user) {
             setLoading(true);
             const userRef = doc(db, "users", user.uid);
-            void setDoc(userRef, { displayName: displayName, phoneNumber: phone, address: address })
+            void setDoc(userRef, { displayName: displayName, phoneNumber: phone, address: address }, { merge: true })
                 .then(() => {
                     toast("Zapisano zmiany", { icon: "✅" });
                     setCanSave(false);

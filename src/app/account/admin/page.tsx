@@ -1,5 +1,14 @@
+"use client"
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
 const Page = () => {
-    return (<div>sutek</div>);
+    const router = useRouter();
+
+    useEffect(() => {
+        router.push("/account/admin/users");
+    }, [])
+    return (<></>);
 }
 
 export default Page;

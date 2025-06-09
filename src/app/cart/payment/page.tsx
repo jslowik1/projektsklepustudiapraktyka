@@ -1,37 +1,33 @@
 "use client"
 import { useAuth } from "@/app/context/AuthProvider";
 import { useCart } from "@/app/context/CartProvider";
-import { db } from "@/lib/firebase";
-import { addDoc, collection, doc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { useCreateOrder } from "@/hooks/mutations/useCreateOrderMutation";
+import { useState } from "react";
+import "./payment.scss"
+import OrderInfo from "./OrderInfo";
+import Spinner from "@/app/components/inputs/Spinner";
 
 const Page = () => {
-    const { cart } = useCart();
+    const [orderId, setOrderId] = useState<string>();
+
+    const { cart, clearCart } = useCart();
     const { user, userData } = useAuth();
-    const [order, setOrder] = useState<any>();
+    const createOrderMutation = useCreateOrder();
+
     const handleOrder = () => {
-        if (order)
-            void addDoc(collection(db, "orders"), order);
+        if (user && cart && userData)
+            void createOrderMutation.mutateAsync({ user: user, cart: cart, shippingAddress: userData.address })
+                .then(docInfo => {
+                    setOrderId(docInfo.id);
+                    clearCart();
+                })
     }
 
-    useEffect(() => {
-        if (user && cart && userData) {
-            const userRef = doc(db, "users", user.uid);
-            setOrder({
-                user: userRef,
-                products: cart.map(item => {
-                    return { id: item.id, quantity: item.quantity }
-                }),
-                orderDate: new Date(),
-                shippingAddress: userData?.address
-            })
-        }
+    return (<div className="payment">
+        {createOrderMutation.status === "idle" ? <button onClick={() => handleOrder()}>Przejdź do płatności</button> : null}
+        {createOrderMutation.status === "pending" ? <Spinner size={30} /> : null}
+        {(createOrderMutation.status !== "idle" && createOrderMutation.status !== "pending") ? <OrderInfo type={createOrderMutation.status} orderId={orderId} /> : null}
 
-
-    }, [cart, user, userData]);
-
-    return (<div>
-        <button onClick={() => handleOrder()}>Zaplac</button>
     </div>);
 }
 
