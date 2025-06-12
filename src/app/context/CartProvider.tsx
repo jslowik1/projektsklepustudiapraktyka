@@ -10,9 +10,9 @@ export interface ICartItem extends IProduct {
 interface CartContextType {
     cart: ICartItem[];
     addToCart: (product: IProduct) => void;
-    removeFromCart: (productId: number) => void;
+    removeFromCart: (productId: string) => void;
     clearCart: () => void;
-    updateQuantity: (productId: number, quantity: number) => void;  // Nowa funkcja
+    updateQuantity: (productId: string, quantity: number) => void;  // Nowa funkcja
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -50,14 +50,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
-    const removeFromCart = (productId: number) => {
+    const removeFromCart = (productId: string) => {
         setCart((prev) => prev.filter((item) => item.id !== productId));
     };
 
     const clearCart = () => { setCart([]) };
 
     // Funkcja do aktualizacji ilości produktu w koszyku
-    const updateQuantity = (productId: number, quantity: number) => {
+    const updateQuantity = (productId: string, quantity: number) => {
         if (quantity <= 0) return; // Zapobiega ustawianiu ilości < 1
         setCart((prev) =>
             prev.map((item) =>

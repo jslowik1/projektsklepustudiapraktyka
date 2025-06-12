@@ -1,7 +1,7 @@
-export enum Product {
+export enum ProductCategory {
     Keyboard = "keyboard",
     Mouse = "mouse",
-    Mousepad = "mousepad", 
+    Mousepad = "mousepad",
     Microphone = "microphone",
     Accessories = "accessories"
 }

@@ -2,10 +2,12 @@
 "use client";
 import { products } from "@/app/assets/products";
 import Dropdown from "@/app/components/inputs/Dropdown";
+import Spinner from "@/app/components/inputs/Spinner";
 import TextInput from "@/app/components/inputs/TextInput";
 import ProductCard from "@/app/components/productCards/ProductCard";
 import { IProduct } from "@/app/model/IProduct";
 import { translateCategory } from "@/app/tools/Tools";
+import { useGetProducts } from "@/hooks/query/useGetProducts";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -14,9 +16,20 @@ const Page = () => {
   const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [search, setSearch] = useState<string>("");
   const [filteredProducts, setFilteredProducts] = useState<IProduct[]>(products);
+  const productsQuery = useGetProducts();
+
+  const [unfilteredProducts, setUnfilteredProducts] = useState<IProduct[]>(products);
 
   useEffect(() => {
-    const filteredProductsNew = products
+    if (productsQuery.data) {
+      setUnfilteredProducts([...unfilteredProducts, ...productsQuery.data])
+    }
+  }, [productsQuery.status])
+
+
+  useEffect(() => {
+    console.log(unfilteredProducts);
+    const filteredProductsNew = unfilteredProducts
       .filter((product) =>
         product.title.toLowerCase().includes(search.toLowerCase())
       )
@@ -34,7 +47,7 @@ const Page = () => {
         } else return item.category === category;
       });
     setFilteredProducts(filteredProductsNew);
-  }, [sort, search]);
+  }, [sort, search, unfilteredProducts]);
 
   useEffect(() => {
     setFilteredProducts(
@@ -75,10 +88,12 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="product-list_content">
-        {filteredProducts.map((item) => (
-          <ProductCard key={item.id} item={item} />
-        ))}
+      <div className="product-list_content" style={productsQuery.isLoading ? { display: "flex", justifyContent: "center" } : undefined}>
+        {productsQuery.isLoading ? <Spinner size={50} /> :
+          filteredProducts.map((item) => (
+            <ProductCard key={item.id} item={item} />
+          ))
+        }
         {filteredProducts.length === 0 ? (
           <span>
             {search !== "" ? "Brak pasujących produktów" : "Brak produktów"}

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 interface IDropdownProps {
   label?: string;
   options: {
     value: string;
     label: string;
   }[];
-  onChange: (e: "asc" | "desc") => void;
-  value: "asc" | "desc";
+  onChange: (e: any) => void;
+  value: any;
 }
 
 const Dropdown: React.FC<IDropdownProps> = ({
@@ -20,7 +21,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
       {label ? <span style={{ margin: "5px 0" }}>{label}</span> : null}
       <select
         value={value}
-        onChange={(e) => onChange(e.target.value as "asc" | "desc")}
+        onChange={(e) => onChange(e.target.value)}
         className="custom-input"
         name=""
         id=""

@@ -1,11 +1,11 @@
-import { Product } from "./Product";
+import { ProductCategory } from "./Product";
 
 export type OrderStatus = "shipped" | "delivered" | "new" | "cancelled" | "refunded" | "paid";
 
 export interface Order {
     id?: string;
     user: string;
-    products: Product[];
+    products: ProductCategory[];
     orderDate: Date;
     shippingAddress: ShippingAddress
     total: string;

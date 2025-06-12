@@ -34,6 +34,7 @@
 
     .account-inside {
         padding: 10px;
+        width: fit-content;
 
         .buttons {
             display: flex;
@@ -68,13 +69,33 @@
         }
 
         .products {
+
             .product {
                 display: flex;
-                align-items: center;
-                gap: 20px;
-
-                border-bottom: 2px solid #ff2e88;
+                width: fit-content;
+                display: flex;
+                flex-direction: column;
+                border: 2px solid #ff2e88;
+                border-radius: 0.75rem;
+                padding: 10px;
+                background-color: #1a1a2e;
+                color: white;
+                margin: 10px 0px;
+                width: 500px;
                 justify-content: space-between;
+
+                &-info {
+                    flex: 1;
+                    display: flex;
+                    gap: 5px;
+                    flex-direction: column;
+                }
+
+                .buttons {
+                    align-items: flex-end;
+                    display: flex;
+                    justify-content: end;
+                }
             }
         }
 

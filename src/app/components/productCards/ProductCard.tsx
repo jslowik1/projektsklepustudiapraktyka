@@ -15,7 +15,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
     const { addToCart, cart, removeFromCart } = useCart();
     const [inCart, setInCart] = useState<boolean>(false);
     const router = useRouter();
-    const [image, setImage] = useState();
+    const [image, setImage] = useState<string>();
     const handleAddToCart = () => {
         if (inCart) {
             removeFromCart(item.id);
@@ -28,6 +28,10 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
     }
 
     useEffect(() => {
+        if (item.image && item.image.includes("https")) {
+            setImage(item.image);
+            return;
+        }
         if (item.image && !image) {
             const img = import("../../assets/images/" + item.image).then(v => v).catch(() => { return "" })
             Promise.all([
