@@ -3,7 +3,7 @@ import { ProductCategory } from "../model/Product";
 
 export const products: IProduct[] = [
     {
-        id: 100001,
+        id: "100001",
         internalName: "mk750_coolermaster",
         title: "Cooler Master MK750",
         price: 499.99,
@@ -15,7 +15,7 @@ export const products: IProduct[] = [
         salePrice: 429.99,
     },
     {
-        id: 100002,
+        id: "100002",
         internalName: "logitech_g502",
         title: "Logitech G502 Hero",
         price: 269.0,
@@ -25,7 +25,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.8, count: 512 },
     },
     {
-        id: 100003,
+        id: "100003",
         internalName: "steelseries_qck",
         title: "SteelSeries QcK Medium",
         price: 69.99,
@@ -35,7 +35,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.5, count: 198 },
     },
     {
-        id: 100004,
+        id: "100004",
         internalName: "hyperx_quadcast",
         title: "HyperX QuadCast",
         price: 599.0,
@@ -47,7 +47,7 @@ export const products: IProduct[] = [
         salePrice: 499.0,
     },
     {
-        id: 100005,
+        id: "100005",
         internalName: "usb_hub_ugreen",
         title: "Ugreen USB 3.0 Hub",
         price: 89.99,
@@ -57,7 +57,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.4, count: 104 },
     },
     {
-        id: 100006,
+        id: "100006",
         internalName: "razer_blackwidow_v4",
         title: "Razer BlackWidow V4",
         price: 699.0,
@@ -67,7 +67,7 @@ export const products: IProduct[] = [
         rating: { rate: 2, count: 402 },
     },
     {
-        id: 100007,
+        id: "100007",
         internalName: "glorious_model_o",
         title: "Glorious Model O",
         price: 329.0,
@@ -77,7 +77,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.9, count: 1340 },
     },
     {
-        id: 100008,
+        id: "100008",
         internalName: "endgame_pad",
         title: "Endgame Gear MPJ-890",
         price: 119.99,
@@ -87,7 +87,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.6, count: 87 },
     },
     {
-        id: 100009,
+        id: "100009",
         internalName: "elgato_wave_3",
         title: "Elgato Wave:3",
         price: 679.0,
@@ -99,7 +99,7 @@ export const products: IProduct[] = [
         salePrice: 589.0,
     },
     {
-        id: 100011,
+        id: "100011",
         internalName: "keychron_k6",
         title: "Keychron K6 Wireless",
         price: 439.0,
@@ -109,7 +109,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.5, count: 230 },
     },
     {
-        id: 100012,
+        id: "100012",
         internalName: "viper_mini",
         title: "Razer Viper Mini",
         price: 149.0,
@@ -121,7 +121,7 @@ export const products: IProduct[] = [
         salePrice: 119.0,
     },
     {
-        id: 100014,
+        id: "100014",
         internalName: "fifine_k690",
         title: "Fifine K690",
         price: 299.0,
@@ -131,7 +131,7 @@ export const products: IProduct[] = [
         rating: { rate: 4.5, count: 143 },
     },
     {
-        id: 100015,
+        id: "100015",
         internalName: "bungee_cable_holder",
         title: "BenQ Zowie CAMADE II",
         price: 129.99,
