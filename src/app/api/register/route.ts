@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextResponse } from "next/server";
 import { getAuth } from "firebase-admin/auth";
-import { app } from "@/lib/firebase-admin"; // zakładam, że tu masz inicjalizację admin SDK
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { app, adminDb } from "@/lib/firebase-admin";
 
 export async function POST(req: Request) {
+
   try {
     const { email, password } = await req.json();
 
@@ -22,13 +21,13 @@ export async function POST(req: Request) {
     });
     if (userRecord) {
       try {
-        await setDoc(doc(db, "users", userRecord.uid), {
+        await adminDb.doc(`users/${userRecord.uid}`).set({
           id: userRecord.uid,
           email: email,
           address: {
             country: "Polska"
           }
-        });
+        })
         return NextResponse.json({
           message: "Użytkownik utworzony",
           uid: userRecord.uid,

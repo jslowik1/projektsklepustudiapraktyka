@@ -1,11 +1,11 @@
-import { ProductCategory } from "./Product";
+import { IProduct } from "./IProduct";
 
 export type OrderStatus = "shipped" | "delivered" | "new" | "cancelled" | "refunded" | "paid";
 
 export interface Order {
     id?: string;
     user: string;
-    products: ProductCategory[];
+    products: IProduct[];
     orderDate: Date;
     shippingAddress: ShippingAddress
     total: string;
@@ -13,8 +13,8 @@ export interface Order {
 }
 
 export interface ShippingAddress {
-    address: string;
+    street: string;
     city: string;
-    postalCode: string;
+    zipCode: string;
     country: string;
 }

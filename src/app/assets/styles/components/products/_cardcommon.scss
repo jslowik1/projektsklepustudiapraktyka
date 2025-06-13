@@ -18,6 +18,13 @@
   background-position: center;
   background-size: cover;
   margin-bottom: 10px;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #ff2e88;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  color: #fff;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 
   &:hover {
     // box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);

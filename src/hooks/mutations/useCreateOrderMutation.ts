@@ -25,10 +25,7 @@ export const useCreateOrder = () => {
 
             const order = {
                 user: userRef,
-                products: cart.map(item => ({
-                    id: item.id,
-                    quantity: item.quantity,
-                })),
+                products: cart,
                 orderDate: new Date(),
                 shippingAddress,
                 total: cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2),

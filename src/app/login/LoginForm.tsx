@@ -58,9 +58,9 @@ const LoginForm = () => {
 
         localStorage.setItem("token", token);
         setIsLoading(false);
-        toast("Zalogowano pomyslnie", { icon: "✅" });
+        toast("Zalogowano pomyslnie. Za chwilę zostaniesz przekierowany", { icon: "✅" });
         setTimeout(() => {
-          router.push("/account");
+          router.push("/");
         }, 2000);
       } catch (error: any) {
         console.log(error);

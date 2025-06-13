@@ -49,13 +49,13 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
         else
             setInCart(false);
     }, [cart])
-
+    console.log(item);
     if (item)
         return (<div className="product-card">
             {item.onSale === true ? <div className="sale-badge">
                 Promocja
             </div> : null}
-            <div onClick={() => { router.push(`/categories/${item.category}/${item.internalName}`) }} style={{ backgroundImage: `url(${image})` }} className={`product-card_img ${item.category}`} />
+            <div onClick={() => { router.push(`/categories/${item.category}/${item.id}`) }} style={{ backgroundImage: `url(${image})` }} className={`product-card_img ${item.category}`} />
             <div className="product-card_desc">
                 <div>{item.title}</div>
                 <CustomRating rating={item.rating.rate} reviewCount={item.rating.count} />

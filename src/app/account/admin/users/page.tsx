@@ -19,9 +19,24 @@ const Page = () => {
       <div>
         {usersQuery.isLoading ? <Spinner size={30} /> : null}
         {users && users.length
-          ? users.map((user) => {
-            return <p key={user.id}>{user.email}</p>;
-          })
+          ? <table className="items-table">
+            <thead className="table-header">
+              <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Imię i nazwisko</th>
+              </tr>
+            </thead>
+            <tbody className="table-body">
+              {users.map((user) => {
+                return <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.email}</td>
+                  <td>{user.displayName}</td>
+                </tr>;
+              })}
+            </tbody>
+          </table>
           : null}
       </div>
     </div>

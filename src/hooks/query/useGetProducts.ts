@@ -13,7 +13,9 @@ const mapDataToProduct = (data: { id: string; data: any }[]): IProduct[] => {
             description: item.data.description,
             category: item.data.category,
             image: item.data.image,
-            rating: item.data.rating
+            rating: item.data.rating,
+            onSale: item.data.onSale ?? false,
+            salePrice: item.data.salePrice ?? 0
         };
     });
 }

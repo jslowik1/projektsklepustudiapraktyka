@@ -24,7 +24,7 @@ const Page = () => {
     }
 
     return (<div className="payment">
-        {createOrderMutation.status === "idle" ? <button onClick={() => handleOrder()}>Przejdź do płatności</button> : null}
+        {createOrderMutation.status === "idle" ? <button onClick={() => handleOrder()}>Złóż zamówienie</button> : null}
         {createOrderMutation.status === "pending" ? <Spinner size={30} /> : null}
         {(createOrderMutation.status !== "idle" && createOrderMutation.status !== "pending") ? <OrderInfo type={createOrderMutation.status} orderId={orderId} /> : null}
 

@@ -153,23 +153,70 @@
                 width: 100%;
 
                 .order-info {
-                    flex: 1;
-                    border: 2px solid #ff2e88;
+                    color: #fff;
+                    font-family: 'Segoe UI', sans-serif;
+                    margin-bottom: 2rem;
+                    backdrop-filter: blur(10px);
+                    background: rgba(255, 255, 255, 0.05);
+                    border: 1px solid rgba(255, 255, 255, 0.15);
                     border-radius: 0.75rem;
-                    padding: 10px;
-                    background-color: #1a1a2e;
-                    color: white;
-                    margin: 10px 0px;
-                    width: 500px;
-                    justify-content: space-between;
+                    padding: 1rem;
+                    font-size: 0.95rem;
+                    color: #fff;
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+                    width: 100%;
+                    height: fit-content;
                     position: relative;
 
                     .icon_button {
                         position: absolute;
-                        top: 10px;
-                        right: 10px;
+                        top: 10;
+                        right: 10;
                     }
+
+                    .order-title {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    .order-status {
+                        font-size: 1rem;
+                        color: #32cd82;
+
+                        span {
+                            font-weight: 600;
+                        }
+                    }
+
+                    .order-date {
+                        font-size: 0.9rem;
+                        color: #ccc;
+                        margin-bottom: 1rem;
+                    }
+
+                    .address-block {
+                        backdrop-filter: blur(10px);
+                        background: rgba(255, 255, 255, 0.05);
+                        border: 1px solid #ff2e88;
+                        border-radius: 0.75rem;
+                        padding: 1rem;
+                        font-size: 0.95rem;
+                        color: #fff;
+                        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+
+                        h3 {
+                            color: #ff2e88;
+                            margin-bottom: 0.5rem;
+                        }
+
+                        p {
+                            margin: 0.25rem 0;
+                        }
+                    }
+
                 }
+
             }
         }
 

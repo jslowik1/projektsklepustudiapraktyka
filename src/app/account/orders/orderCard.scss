@@ -9,6 +9,14 @@
     margin: 10px 0px;
     width: 500px;
     justify-content: space-between;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #ff2e88;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    font-size: 0.95rem;
+    color: #fff;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 
     &_info {
         display: flex;

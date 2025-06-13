@@ -22,7 +22,18 @@ export default function RootLayout({
           <Navbar />
           <Toaster
             position="bottom-right"
-            toastOptions={{ style: { background: "#ff2e88", color: "white" } }}
+            toastOptions={{
+              style: {
+                backdropFilter: 'blur(10px)',
+                background: 'rgba(255, 255, 255, 0.05)',
+                border: '1px solid #ff2e88',
+                borderRadius: '0.75rem',
+                width: "fit-content",
+                fontSize: '0.95rem',
+                color: '#fff',
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5)'
+              }
+            }}
           />
           {children}
           <Footer />

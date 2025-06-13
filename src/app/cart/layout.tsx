@@ -8,6 +8,7 @@ import { FaCheck } from "react-icons/fa";
 import ProgressBar from "../components/inputs/ProgressBar";
 import RadioGroup from "../components/inputs/RadioGroup";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "../context/AuthProvider";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { cart } = useCart();
@@ -19,7 +20,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
   const [hideSummary, setHideSummary] = useState<boolean>(false);
-
+  const { user } = useAuth();
   useEffect(() => {
     setTotalItems(
       cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -109,15 +110,16 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
                   <RadioGroup selected={shipping.key} onChange={(o) => setShipping({ key: o.key, value: Number(o.value) })} options={[{ value: 20, key: "dpd", label: "DPD", checked: true }, { value: 15, label: "InPost", key: "inpost", checked: false }, { value: 0, label: "Odbiór osobisty", key: "personal", checked: false }]} />
                 </div>
-                <button onClick={() => { handleProceed() }} className={`cart-summary-value-button ${cart.length <= 0 ? "disabled" : ""}`}>
-                  Wprowadź adres odbiorcy
+                <button disabled={cart.length <= 0 || !user} onClick={() => { handleProceed() }} className={`cart-summary-value-button ${(cart.length <= 0 || !user) ? "disabled" : ""}`}>
+                  {pathname === "/cart/checkout" ? "Przejdź do płatności" : "Wprowadź adres odbiorcy"}
                 </button>
+                {!user && <span style={{ color: "crimson", fontSize: 16 }}>Aby dokonać zakupu, musisz być zalogowany</span>}
               </div>
             </div>}
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -17,7 +17,7 @@ const Navbar = () => {
   const { cart } = useCart();
   const [visibleNavbar, setVisibleNavbar] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
 
   return (
     <div className="navbar">
@@ -91,6 +91,7 @@ const Navbar = () => {
           <IconButton disabled Icon={MdPhone} size={40} onClick={() => { }} />
           <div>
             <IconButton
+              text={user ? userData?.displayName.split(" ")[0] : undefined}
               Icon={MdPerson}
               size={40}
               onClick={() => {
