@@ -8,7 +8,7 @@ interface OrderInfoProps {
 
 const OrderInfo: React.FC<OrderInfoProps> = ({ type, orderId }) => {
 
-    return <div className="order-info">
+    return <div className="after-order-info">
         {type === "success" ?
             <>
                 <BiCheck color="lightgreen" size={70} />

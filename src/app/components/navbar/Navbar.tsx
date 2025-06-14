@@ -91,7 +91,7 @@ const Navbar = () => {
           <IconButton disabled Icon={MdPhone} size={40} onClick={() => { }} />
           <div>
             <IconButton
-              text={user ? userData?.displayName.split(" ")[0] : undefined}
+              text={user && userData?.displayName ? userData?.displayName.split(" ")[0] : undefined}
               Icon={MdPerson}
               size={40}
               onClick={() => {
