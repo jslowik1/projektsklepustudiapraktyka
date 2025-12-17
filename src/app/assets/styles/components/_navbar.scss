@@ -1,5 +1,8 @@
+@use "../variables" as *;
+@use "../mixins" as *;
+
 .navbar {
-  background-color: #1a1a2e;
+  background-color: $secondary-color;
   margin: 0;
   padding: 10px;
   color: #eaeaea;
@@ -7,7 +10,7 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  border-bottom: 2px solid #ff2e88;
+  border-bottom: $thick-border;
 
   &_header {
     display: flex;
@@ -16,7 +19,7 @@
     width: 100%;
     font-size: 30px;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-tablet) {
       flex-direction: column;
     }
 
@@ -46,7 +49,7 @@
     .sale {
       -webkit-animation: heartbeat 1.5s ease-in-out infinite both;
       animation: heartbeat 1.5s ease-in-out infinite both;
-      background-color: #ff2e88;
+      background-color: $base-color;
     }
 
     &.mobile {
@@ -60,30 +63,11 @@
       }
     }
 
-    button {
-      border: 2px solid #ff2e88;
-      background: transparent;
-      font-weight: bold;
-      color: #eaeaea;
-      padding: 0.4rem 1rem;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-radius: 0.75rem;
-      cursor: pointer;
-      transition: all 0.25s ease-in-out;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-
-      &.active {
-        background-color: #ff2e88;
-      }
-    }
-
-    button:hover {
-      background-color: #ff2e88;
+    a {
+      @include btn-styles;
+      @include glass-effect(0.4rem 1rem);
+      text-decoration: none;
+      color: inherit;
     }
   }
 }

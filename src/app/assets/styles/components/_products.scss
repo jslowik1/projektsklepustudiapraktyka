@@ -1,6 +1,8 @@
+@use "../variables" as *;
+
 .product-main {
   height: 100%;
-  background-color: #0d0c1da1;
+  background-color: rgba($dark-bg-color, 0.63);
   background-image: url("../../../assets/images/background.png");
   background-blend-mode: darken;
   background-size: cover;
@@ -14,11 +16,11 @@
 .product-list {
   display: flex;
   color: white;
-  background-color: rgba(26, 26, 46, 0.75);
+  background-color: rgba($secondary-color, 0.75);
   height: 100%;
   flex: 1;
-  border-radius: 0.75rem;
-  border: 2px solid #ff2e88;
+  border-radius: $border-radius;
+  border: $thick-border;
 
   @media (max-width: 760px) {
     flex-direction: column;
@@ -31,7 +33,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-right: 2px solid #ff2e88;
+    border-right: $thick-border;
     padding: 20px;
 
     &-sort {
@@ -65,7 +67,7 @@
     height: 100%;
     width: 100%;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-tablet) {
       flex-direction: column;
       overflow-y: scroll;
       justify-content: center;

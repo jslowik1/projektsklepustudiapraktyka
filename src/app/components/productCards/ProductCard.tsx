@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { IProduct } from "@/app/model/IProduct";
-import IconButton from "../inputs/IconButton";
 import { useCart } from "@/app/context/CartProvider";
-import { FaPlus, FaCheck } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { IProduct } from "@/app/model/IProduct";
 import { useRouter } from "next/navigation";
-import CustomRating from "../inputs/Rating";
+import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
+import { FaCheck, FaPlus } from "react-icons/fa";
+import IconButton from "../inputs/IconButton";
+import CustomRating from "../inputs/Rating";
 interface IProductCardProps {
     item: IProduct
 }
