@@ -1,17 +1,26 @@
 @use "../../../assets/styles/variables" as *;
 @use "../../../assets/styles/mixins" as *;
 
+.table-wrapper {
+  max-height: 60vh;
+  overflow: auto; /* enable both vertical and horizontal scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
 .items-table {
-    width: 100%;
+    width: max-content; /* allow table to expand horizontally */
+    min-width: 100%; /* but never smaller than container */
     border-collapse: separate;
-    border-spacing: 10px 10px;
+    border-spacing: 5px;
     color: #fff;
     font-family: $font-family-base;
-
+    white-space: nowrap;
+    overflow: visible;
     .table-header {
         th {
             @include glass-effect(1rem);
             font-size: 0.95rem;
+            white-space: nowrap;
         }
     }
 
@@ -23,10 +32,104 @@
                 font-size: 15px;
                 border-radius: $border-radius;
                 text-align: center;
+                white-space: nowrap; /* prevent wrapping so horizontal scroll works predictably */
             }
 
             &:hover td {
                 background-color: #3a3a4f;
+            }
+
+            /* Action buttons inside table rows */
+            td .buttons {
+                display: flex;
+                justify-content: center;
+                gap: 8px;
+            }
+
+            td .buttons button {
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0.6rem;
+                border: 1px solid rgba(255,255,255,0.04);
+                background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+                color: #fff;
+                cursor: pointer;
+                transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+                box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+            }
+
+            td .buttons button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 24px rgba(0,0,0,0.45);
+            }
+
+            td .buttons button.edit {
+                border-color: rgba(255,46,136,0.18);
+                background: linear-gradient(180deg, rgba(255,46,136,0.08), rgba(255,46,136,0.03));
+                color: #ffd6ea;
+            }
+
+            td .buttons button.delete {
+                border-color: rgba(255,80,80,0.18);
+                background: linear-gradient(180deg, rgba(255,70,70,0.08), rgba(255,40,40,0.03));
+                color: #ffdede;
+            }
+
+            td .buttons button:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+                box-shadow: none;
+            }
+
+            /* Sale badge */
+            td .badge {
+                display: inline-block;
+                padding: 0.25rem 0.55rem;
+                border-radius: 999px;
+                font-weight: 700;
+                font-size: 0.85rem;
+            }
+
+            td .badge.sale {
+                background: linear-gradient(180deg, rgba(255,46,136,0.18), rgba(255,46,136,0.08));
+                color: greenyellow;
+                border: 1px solid #ff2e88;
+            }
+
+            td .badge.no-sale {
+                background: rgba(255,255,255,0.02);
+                color: #ddd;
+                border: 1px solid rgba(255,255,255,0.04);
+            }
+
+            td .badge.sold {
+                background: linear-gradient(180deg, rgba(255,60,60,0.18), rgba(255,40,40,0.08));
+                color: #fff;
+                border: 1px solid rgba(255,40,40,0.22);
+            }
+
+            td .badge.available {
+                background: linear-gradient(180deg, rgba(60,200,120,0.08), rgba(60,200,120,0.03));
+                color: #dfffe6;
+                border: 1px solid rgba(60,200,120,0.12);
+            }
+
+            /* Price sale visuals */
+            td .strike {
+                text-decoration: line-through;
+                opacity: 0.75;
+                margin-right: 8px;
+                color: rgba(255,255,255,0.8);
+            }
+
+            td .sale-price {
+                color: #ff2e88;
+                font-weight: 800;
             }
         }
     }

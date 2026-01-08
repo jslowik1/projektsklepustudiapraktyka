@@ -14,4 +14,5 @@ export interface IProduct {
   };
   onSale?: boolean;
   salePrice?: number;
+  soldOut?: boolean;
 }

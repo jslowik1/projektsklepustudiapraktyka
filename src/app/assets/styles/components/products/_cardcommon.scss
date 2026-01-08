@@ -26,11 +26,6 @@
   color: #fff;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 
-  &:hover {
-    // box-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
-    transform: scale(1.05);
-  }
-
   @media (max-width: 760px) {
     height: 250px;
   }
@@ -103,5 +98,23 @@
     color: #fff;
     padding: 5px 10px;
     border-radius: 0 0 0 0.75rem;
+  }
+
+  .sold-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(255,40,40,1);
+    color: #ffdede;
+    padding: 5px 10px;
+    border-radius: 0 0 0.75rem 0;
+    font-weight: 700;
+  }
+
+  &.is-sold {
+    opacity: 0.85;
+    filter: grayscale(20%);
+
+    .product-card_desc { opacity: 0.9; }
   }
 }

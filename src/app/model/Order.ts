@@ -1,14 +1,21 @@
-import { IProduct } from "./IProduct";
-
 export type OrderStatus = "shipped" | "delivered" | "new" | "cancelled" | "refunded" | "paid";
+
+export interface OrderProduct {
+    id: string;
+    title: string;
+    quantity: number;
+    unitPrice: number;
+    lineTotal: number;
+    image?: string;
+}
 
 export interface Order {
     id?: string;
     user: string;
-    products: IProduct[];
+    products: OrderProduct[];
     orderDate: Date;
     shippingAddress: ShippingAddress
-    total: string;
+    total: number;
     status: OrderStatus
 }
 

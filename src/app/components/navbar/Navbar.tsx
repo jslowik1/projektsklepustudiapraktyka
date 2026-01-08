@@ -24,16 +24,15 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar_header">
         <div className="navbar_header-logo">
-          <Image
-            width={100}
-            onClick={() => {
-              router.push("/");
-            }}
-            src={image.src}
-            className="navbar_header-logo_img"
-            alt=""
-            height={50}
-          />
+          <Link href="/">
+            <Image
+              width={100}
+              src={image.src}
+              className="navbar_header-logo_img"
+              alt=""
+              height={50}
+            />
+          </Link>
         </div>
         {(screenWidth && screenWidth < 768) && (
           <IconButton

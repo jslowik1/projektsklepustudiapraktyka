@@ -1,41 +1,58 @@
 "use client";
 import { useEffect, useState } from "react";
-import IconButton from "../components/inputs/IconButton";
-import TextInput from "../components/inputs/TextInput";
 import { useCart } from "../context/CartProvider";
 
-import { FaCheck } from "react-icons/fa";
-import ProgressBar from "../components/inputs/ProgressBar";
-import RadioGroup from "../components/inputs/RadioGroup";
+import { useCreateOrder } from "@/hooks/mutations/useCreateOrderMutation";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../context/AuthProvider";
+import CartSummary from "./summary/CartSummary";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const { cart } = useCart();
+  const { cart, clearCart } = useCart();
   const [code, setCode] = useState<string>("");
   const [discount, setDiscount] = useState<number>(0);
+  const [discountError, setDiscountError] = useState<boolean>(false);
   const [totalItems, setTotalItems] = useState<number>(0);
   const [total, setTotal] = useState<number>(0);
   const [shipping, setShipping] = useState<{ key: string, value: number }>({ key: "dpd", value: 20 });
   const router = useRouter();
   const pathname = usePathname();
   const [hideSummary, setHideSummary] = useState<boolean>(false);
-  const { user } = useAuth();
+  const { user, userData } = useAuth();
+  const createOrderMutation = useCreateOrder();
+
   useEffect(() => {
     setTotalItems(
-      cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
+      cart.reduce((acc, item) => acc + (item.onSale && item.salePrice ? item.salePrice : item.price) * item.quantity, 0)
     );
   }, [cart]);
 
   const applyDiscount = () => {
     if (code === "10") {
       setDiscount(10);
+      sessionStorage.setItem("discount", "10");
+      discountError && setDiscountError(false);
     } else if (code === "20") {
       setDiscount(20);
+      sessionStorage.setItem("discount", "20");
+      discountError && setDiscountError(false);
     } else if (code === "30") {
       setDiscount(30);
+      sessionStorage.setItem("discount", "30");
+      discountError && setDiscountError(false);
+    } else {
+      setDiscount(0);
+      sessionStorage.removeItem("discount");
+      setDiscountError(true);
     }
   };
+
+  useEffect(() => {
+    const savedDiscount = sessionStorage.getItem("discount");
+    if (savedDiscount) {
+      setDiscount(parseInt(savedDiscount));
+    }
+  }, [])
 
   useEffect(() => {
     setTotal(
@@ -46,79 +63,43 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, [discount, totalItems, shipping]);
 
 
+
   const handleProceed = () => {
     if (cart.length > 0 && pathname === "/cart") router.push("cart/checkout")
     else if (cart.length > 0 && pathname === "/cart/checkout") {
-      setHideSummary(true)
-      router.push("/cart/payment")
+      if (user && cart && userData)
+        void createOrderMutation.mutateAsync({ user: user, cart: cart, shippingAddress: userData.address })
+          .then(docInfo => {
+            router.push("/cart/complete/" + docInfo.id);
+            clearCart();
+            setHideSummary(true);
+          })
     }
   }
 
   return (
-    <div className="product-main">
-      <div className="product-list">
-        <div className="cart">
-          <h1>Koszyk</h1>
-          <div className="cart-container">
-            {children}
-            {hideSummary !== true && <div className="cart-summary">
-              <span>Podsumowanie</span>
-              <div className="cart-summary-value">
-                <span className="cart-summary-value-item">
-                  <span>Produkty</span> {totalItems.toFixed(2)} zł
-                </span>
-                {discount > 0 ? (
-                  <span className="cart-summary-value-item">
-                    <span>Rabat</span> -{" "}
-                    {(totalItems * (discount / 100)).toFixed(2)} zł{" "}
-                  </span>
-                ) : null}
-                {totalItems < 500 && (
-                  <span className="cart-summary-value-item">
-                    <span>Dostawa</span>{" "}
-                    {totalItems > 500 ? 0 : shipping.value.toFixed(2)} zł{" "}
-                  </span>
-                )}
-                <ProgressBar
-                  label={
-                    totalItems < 500
-                      ? `Do darmowej dostawy brakuje ${(
-                        500 - totalItems
-                      ).toFixed(2)} zł`
-                      : "Darmowa dostawa 👏"
-                  }
-                  value={totalItems > 500 ? 100 : (totalItems / 500) * 100}
-                />
-                <span className="cart-summary-value-item">
-                  <span>Łącznie</span> {total.toFixed(2)} zł{" "}
-                </span>
-                <div className="cart-summary-value-code">
-                  <TextInput
-                    placeholder="Wprowadź kod promocyjny"
-                    label="Kod promocyjny"
-                    onChange={setCode}
-                  />
-                  <IconButton
-                    disabled={code === ""}
-                    onClick={() => {
-                      applyDiscount();
-                    }}
-                    text="Zastosuj"
-                    Icon={FaCheck}
-                  />
-                </div>
-                <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
-                  <RadioGroup selected={shipping.key} onChange={(o) => setShipping({ key: o.key, value: Number(o.value) })} options={[{ value: 20, key: "dpd", label: "DPD", checked: true }, { value: 15, label: "InPost", key: "inpost", checked: false }, { value: 0, label: "Odbiór osobisty", key: "personal", checked: false }]} />
-                </div>
-                <button disabled={cart.length <= 0 || !user} onClick={() => { handleProceed() }} className={`cart-summary-value-button ${(cart.length <= 0 || !user) ? "disabled" : ""}`}>
-                  {pathname === "/cart/checkout" ? "Przejdź do płatności" : "Wprowadź adres odbiorcy"}
-                </button>
-                {!user && <span style={{ color: "crimson", fontSize: 16 }}>Aby dokonać zakupu, musisz być zalogowany</span>}
-              </div>
-            </div>}
-          </div>
+    <div className="product-main cart-layout">
+      <div className="cart">
+        <h1>Koszyk</h1>
+        <div className="cart-container">
+          {children}
         </div>
       </div>
+      {hideSummary !== true &&
+        <CartSummary
+          totalItems={totalItems}
+          discount={discount}
+          total={total}
+          shipping={shipping}
+          setShipping={setShipping}
+          code={code}
+          setCode={setCode}
+          applyDiscount={applyDiscount}
+          cart={cart}
+          user={user}
+          pathname={pathname}
+          discountError={discountError}
+          handleProceed={handleProceed} />}
     </div >
   );
 };

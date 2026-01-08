@@ -1,6 +1,6 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
-import { MdPerson, MdListAlt, MdAdminPanelSettings } from "react-icons/md";
+import { MdAdminPanelSettings, MdListAlt, MdPerson } from "react-icons/md";
 import { useAuth } from "../context/AuthProvider";
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();

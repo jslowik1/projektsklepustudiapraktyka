@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import TextInput from "../components/inputs/TextInput";
-import { useAuth } from "../context/AuthProvider";
 import { db } from "@/lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Spinner from "../components/inputs/Spinner";
+import TextInput from "../components/inputs/TextInput";
+import { useAuth } from "../context/AuthProvider";
 import { UserAddress } from "../model/User";
 
 
@@ -58,25 +58,27 @@ const Page = () => {
         }
     }
 
-    return (<div className="account-inside">
-        <h1>Twoje konto</h1>
-        <TextInput label="Email" value={user?.email ?? ""} disabled={true} onChange={() => { }} />
-        <TextInput label="Imię i nazwisko" value={displayName} onChange={setDisplayName} />
-        <TextInput type="tel" label="Numer telefonu" value={phone} onChange={(v) => { if (v.length <= 9 && isNumber(v)) setPhone(v) }} />
-        <TextInput label="Ulica" value={address.street} onChange={(e) => { setAddress({ ...address, street: e }) }} />
-        <TextInput label="Kod pocztowy" value={address.zipCode} onChange={e => { setAddress({ ...address, zipCode: e }) }} />
-        <TextInput label="Miasto" value={address.city} onChange={e => { setAddress({ ...address, city: e }) }} />
-        <TextInput label="Państwo" value={address.country} onChange={() => { }} />
-        {loading && <Spinner />}
-        <div className="account-info-buttons">
-            <button disabled={!canSave} className={`${!canSave ? "disabled" : ""}`} onClick={
-                async () => await updateUserInfo()
-            }>Zapisz zmiany</button>
-            <button onClick={
-                async () => await logout().then(() => toast("Wylogowano", { icon: "✅" }))
-            }>Wyloguj</button>
+    return (
+        <div className="account-inside">
+            <h1>Twoje dane</h1>
+            <TextInput label="Email" value={user?.email ?? ""} disabled onChange={() => { }} />
+            <TextInput label="Imię i nazwisko" value={displayName} onChange={setDisplayName} />
+            <TextInput type="tel" label="Numer telefonu" value={phone} onChange={(v) => { if (v.length <= 9 && isNumber(v)) setPhone(v) }} />
+            <TextInput label="Adres" value={address.street} onChange={(e) => { setAddress({ ...address, street: e }) }} />
+            <TextInput label="Kod pocztowy" value={address.zipCode} onChange={e => { setAddress({ ...address, zipCode: e }) }} />
+            <TextInput label="Miasto" value={address.city} onChange={e => { setAddress({ ...address, city: e }) }} />
+            <TextInput disabled label="Państwo" value={address.country} onChange={() => { }} />
+            {loading && <Spinner />}
+            <div className="buttons">
+                <button disabled={!canSave} className={`${!canSave ? "disabled" : ""}`} onClick={
+                    async () => await updateUserInfo()
+                }>Zapisz zmiany</button>
+                <button onClick={
+                    async () => await logout().then(() => toast("Wylogowano", { icon: "✅" }))
+                }>Wyloguj</button>
+            </div>
         </div>
-    </div>);
+    );
 }
 
 export default Page;

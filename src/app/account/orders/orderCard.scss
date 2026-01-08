@@ -1,30 +1,44 @@
 .order-card {
     display: flex;
-    gap: 10px;
-    border: 2px solid #ff2e88;
-    border-radius: 0.75rem;
-    padding: 10px;
-    background-color: #1a1a2e;
-    color: white;
-    margin: 10px 0px;
-    width: 500px;
+    align-items: center;
     justify-content: space-between;
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #ff2e88;
+    gap: 12px;
+    background: linear-gradient(180deg, rgba(255,46,136,0.04), rgba(255,46,136,0.02));
     border-radius: 0.75rem;
     padding: 1rem;
-    font-size: 0.95rem;
     color: #fff;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    margin: 10px 0px;
+    width: 100%;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,46,136,0.12);
+    box-shadow: 0 6px 24px rgba(0,0,0,0.45);
+    transition: transform .12s ease, box-shadow .12s ease;
+    cursor: pointer;
+
+    &:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,0.5); }
 
     &_info {
+        flex: 1 1 auto;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
 
-    .icon_button {
-        margin: 0px 20px;
+    .row { display:flex; justify-content:space-between; align-items:center; gap:12px;
+        .left { .order-id { color:#fff; font-weight:700; } .order-date { color:#ccc; font-size:0.9rem; } }
+        .right { display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+            .status { padding:4px 8px; border-radius: 999px; font-weight:700; font-size:0.85rem; }
+            .status.paid { background: rgba(50,205,130,0.12); color: #32cd82; border: 1px solid rgba(50,205,130,0.18); }
+            .status.cancelled { background: rgba(255,90,90,0.08); color:#ff6b6b; border:1px solid rgba(255,90,90,0.08);}
+            .status.new, .status.refunded { background: rgba(255,255,255,0.02); color:#ddd }
+            .status.delivered, .status.shipped { background: rgba(255,255,255,0.02); color:#ddd }
+            .total { font-weight:800; color:#ffd166; }
+        }
     }
+
+    .meta { color:#ddd; font-size:0.95rem; }
+
+    .order-card_action { margin-left: 12px; .icon_button { background: rgba(255,255,255,0.02); border-radius: 8px; padding:6px; } }
+
+    @media (max-width: 720px) { flex-direction: column; align-items:stretch; .row { flex-direction:column; align-items:flex-start; .right { align-items:flex-start; } } }
 }

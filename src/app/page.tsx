@@ -12,21 +12,12 @@ const Home = () => {
       <div style={{ display: "flex", width: "100%", flexDirection: "column" }}>
         <Marquee autoFill pauseOnHover speed={50} gradient={false} className="current-offer" aria-label="Informacje świąteczne">
           <span className="offer-item offer-delivery">Darmowa dostawa powyżej 500 zł</span>
-          <span className="offer-item offer-sale"><Link href="/categories/sale" className="holiday-link">Świąteczna wyprzedaż</Link></span>
+          <span className="offer-item offer-sale"><Link href="/categories/sale" className="holiday-link">Noworoczna wyprzedaż</Link></span>
           <span className="offer-item offer-guarantee">Gwarancja dostawy przed świętami</span>
         </Marquee>
         <div style={{ display: "flex", width: "100%", gap: 40 }}>
-          <div>
-            <div>
-              <h2 style={{ margin: "10px 0" }}>Gorąca promocja</h2>
-              <div className="promo-image">
-                <img src="../../" alt="" />
-              </div>
-            </div>
-          </div>
           <div style={{ width: "100%" }}>
             <div>
-              <h2 style={{ margin: "10px 0" }}>Aktywne promocje</h2>
               <div className="sales-container">
                 <div className="sale"></div>
                 <div className="sale"></div>

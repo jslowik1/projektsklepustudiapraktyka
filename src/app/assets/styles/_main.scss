@@ -2,7 +2,7 @@
 
 .mainbody {
   font-weight: bold;
-  width: 100vw;
+  width: 100%;
   min-height: calc(100vh + 175px);
   display: flex;
   flex-direction: column;
@@ -22,9 +22,18 @@
     font-size: 0.95rem;
     color: #fff;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    span{
+    span {
       margin: 0 20px;
     }
+    background: linear-gradient(
+      135deg,
+      rgba($dark-bg-color, 0.7) 0%,
+      rgba($dark-bg-color, 0.5) 100%
+    );
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
   }
 }
 
@@ -67,7 +76,8 @@
   .sales-container {
     width: fit-content;
     margin-top: 5px;
-    height: 200px;
+    width: 100%;
+    height: 400px;
     border-radius: $border-radius;
     background-color: #504d7a;
     display: flex;
@@ -76,45 +86,43 @@
 
     @media (max-width: $breakpoint-tablet) {
       flex-direction: column;
-      height: 1000px;
+      align-items: center;
+      height: 600px;
     }
 
     .sale {
       background-image: url("../../assets/images/sale.png");
-      height: 200px;
-      width: 300px;
+      width: 100%;
       background-size: cover;
       background-position: center;
       transition: all 0.25s ease-out;
 
       &:hover {
-        transform: scale(1.1);
         cursor: pointer;
+      }
+      @media (max-width: $breakpoint-tablet) {
+        height: calc(100% / 3)
       }
     }
 
     .sale:nth-child(2) {
       background-image: url("../../assets/images/shipping.png");
-      height: 200px;
       background-size: cover;
       background-position: center;
       transition: all 0.25s ease-out;
 
       &:hover {
-        transform: scale(1.1);
         cursor: pointer;
       }
     }
 
     .sale:nth-child(3) {
-      background-image: url("../../assets/images/xmas.jpg");
-      height: 200px;
+      background-image: url("../../assets/images/sale1.jpg");
       background-size: cover;
       background-position: center;
       transition: all 0.25s ease-out;
 
       &:hover {
-        transform: scale(1.1);
         cursor: pointer;
       }
     }

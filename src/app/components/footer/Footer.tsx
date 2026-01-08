@@ -1,11 +1,11 @@
 "use client";
-import { FaCheck } from "react-icons/fa";
-import IconButton from "../inputs/IconButton";
-import TextInput from "../inputs/TextInput";
+import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { FaCheck } from "react-icons/fa";
+import IconButton from "../inputs/IconButton";
 import Spinner from "../inputs/Spinner";
-import Link from "next/link";
+import TextInput from "../inputs/TextInput";
 
 const Footer = () => {
   const [newsletterMail, setNewsletterMail] = useState<string>("");
@@ -63,12 +63,14 @@ const Footer = () => {
             <TextInput
               placeholder="Twój adres email"
               onChange={setNewsletterMail}
+              type="email"
             />
             {!newsletterLoading ? (
               <IconButton
                 disabled={newsletterMail === "" || !newsletterMail.includes("@")}
                 Icon={FaCheck}
                 onClick={handleNewsletter}
+                aria-label="Zapisz do newslettera"
               />
             ) : (
               <Spinner size={30} />
