@@ -13,7 +13,7 @@
     "@tanstack/react-query": "^5.80.6",
     "firebase": "^11.8.1",
     "firebase-admin": "^13.4.0",
-    "next": "15.2.4",
+    "next": "15.2.8",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
