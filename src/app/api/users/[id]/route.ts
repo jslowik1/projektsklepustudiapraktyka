@@ -1,9 +1,18 @@
 import { adminDb } from "@/lib/firebase-admin";
 import { NextResponse } from "next/server";
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, context: unknown) {
     try {
-        const docRef = adminDb.collection("users").doc(params.id);
+        const params = (typeof context === "object" && context !== null && "params" in context)
+            ? (context as { params?: { id?: string | string[] } }).params ?? {}
+            : {};
+        // normalize id in case it's an array (Next can provide params as string | string[])
+        const id = Array.isArray(params.id) ? params.id[0] : params.id;
+        if (!id) {
+            return NextResponse.json({ error: "Nieprawidłowy identyfikator" }, { status: 400 });
+        }
+
+        const docRef = adminDb.collection("users").doc(id);
         const docSnap = await docRef.get();
 
         if (!docSnap.exists) {
