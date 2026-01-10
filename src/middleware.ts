@@ -1,8 +1,7 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // prosta kontrola, np. przekierowanie, sprawdzenie headera
   const token = request.cookies.get("token");
 
   if (!token || !token.value) {
@@ -13,5 +12,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/account/:path*", "/account/admin"], // ścieżki które chcesz chronić
+  matcher: ["/account/:path*", "/account/admin"],
 };

@@ -1,7 +1,6 @@
-// src/app/api/isAdmin/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import * as admin from "firebase-admin";
 import { adminDb } from "@/lib/firebase-admin";
+import * as admin from "firebase-admin";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   try {
@@ -9,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     if (!token) {
       return NextResponse.json(
-        { isAdmin: false, error: "Brak tokena" },
+        { isAdmin: false, error: "Brak tokenu" },
         { status: 401 }
       );
     }
