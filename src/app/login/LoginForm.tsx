@@ -43,7 +43,6 @@ const LoginForm = () => {
     const emailOk = email ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) : false;
     setIsEmailValid(emailOk || email.length === 0);
     setIsValid(isValidForm());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password, repeatPassword, isRegister]);
 
   const handleLogin = () => {

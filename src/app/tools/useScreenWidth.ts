@@ -7,7 +7,7 @@ export const useScreenWidth = () => {
     useEffect(() => {
         const handleResize = () => setScreenWidth(window.innerWidth);
 
-        handleResize(); // Ustaw wartość przy pierwszym renderze
+        handleResize();
 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);

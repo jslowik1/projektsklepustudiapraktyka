@@ -1,7 +1,6 @@
-// src/app/api/isAdmin/route.ts
-import { NextRequest, NextResponse } from "next/server";
-import { getAuth } from "firebase-admin/auth";
 import { app } from "@/lib/firebase-admin";
+import { getAuth } from "firebase-admin/auth";
+import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   if (!app) return;
   try {
@@ -17,7 +16,6 @@ export async function GET(req: NextRequest) {
     const decodedToken = await getAuth().verifyIdToken(authToken);
     const user = await getAuth().getUser(decodedToken.uid);
 
-    // Sprawdź custom claims (lepsze rozwiązanie niż Firestore)
     const isAdmin = user.customClaims?.admin === true;
 
     return NextResponse.json({ isAdmin });

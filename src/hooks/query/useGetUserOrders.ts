@@ -1,20 +1,21 @@
+import { Order } from "@/app/model/Order";
+import { db } from "@/lib/firebase";
 import { useQuery } from "@tanstack/react-query";
+import { User } from "firebase/auth";
 import {
     collection,
     doc,
     getDoc,
     getDocs,
     query,
-    where,
-    Timestamp
+    Timestamp,
+    where
 } from "firebase/firestore";
-import { db } from "@/lib/firebase"; // Upewnij się, że ścieżka się zgadza
-import { User } from "firebase/auth";
-import { Order } from "@/app/model/Order";
 
 const fetchUserOrders = async (user: User): Promise<Order[]> => {
     const userRef = doc(db, "users", user.uid);
     const userSnap = await getDoc(userRef);
+
 
     if (!userSnap.exists()) {
         throw new Error("Użytkownik nie istnieje");
@@ -46,6 +47,6 @@ export const useGetUserOrders = (user: User | null) => {
     return useQuery<Order[]>({
         queryKey: ["userOrders", user?.uid],
         queryFn: () => fetchUserOrders(user!),
-        enabled: !!user // tylko jeśli użytkownik istnieje
+        enabled: !!user
     });
 };

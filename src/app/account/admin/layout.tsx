@@ -14,7 +14,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [showWarning, setShowWarning] = useState(false);
 
   useEffect(() => {
-    // check localStorage to see if user opted out
     const dismissed = typeof window !== 'undefined' ? window.localStorage.getItem('adminWarningDismissed') : null;
 
     const mq = window.matchMedia('(max-width: 900px)');

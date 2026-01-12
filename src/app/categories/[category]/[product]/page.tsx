@@ -51,7 +51,6 @@ const Page = () => {
             removeFromCart(productInfo.id);
             toast.success(`Usunięto ${productInfo.title} z koszyka`);
         } else {
-            // pass quantity as part of product object (CartProvider should tolerate it)
             const itemWithQty = { ...productInfo, qty } as any;
             addToCart(itemWithQty);
             toast.success(`Dodano ${productInfo.title} (x${qty}) do koszyka`);

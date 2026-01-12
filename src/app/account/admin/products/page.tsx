@@ -33,8 +33,6 @@ const Page = () => {
   const addProductMutation = useAddProduct();
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
-
-  // Edit modal local state
   const [editProductId, setEditProductId] = useState<string>("");
   const [editCategory, setEditCategory] = useState<ProductCategory>(ProductCategory.Keyboard);
   const [editName, setEditName] = useState<string>("");
