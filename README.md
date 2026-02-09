@@ -1,67 +1,122 @@
-This is a Next.js 15 (App Router) TypeScript storefront. It uses Firebase (client + admin), React Query for data fetching/caching and SCSS for styling.
+# Projekt i implementacja sklepu internetowego z akcesoriami dla graczy „GameZone”
 
-Quick start
+Projekt inżynierski zrealizowany na kierunku Informatyka (Specjalność: Cyberbezpieczeństwo i Technologie Sieciowe) w Lubelskiej Akademii WSEI.
 
-1. Install dependencies:
+Aplikacja jest nowoczesnym sklepem internetowym typu SPA (Single Page Application) zrealizowanym w architekturze MVP (Minimum Viable Product).
+
+## Informacje o autorze
+
+- **Student:** Jakub Słowik (Nr albumu: 42490)
+- **Opiekun projektu:** dr inż. Piotr Kopniak
+- **Uczelnia:** Lubelska Akademia WSEI
+- **Rok:** 2026
+
+## Zastosowane technologie
+
+Projekt wykorzystuje najnowszy stos technologiczny (stan na rok 2026):
+
+- **Frontend:** [Next.js 15](https://nextjs.org/) (App Router), [React 19](https://react.dev/)
+- **Język programowania:** TypeScript
+- **Baza danych i Backend:** Google Firebase 11 (Cloud Firestore, Authentication)
+- **Zarządzanie stanem:** React Context API + TanStack Query 5
+- **Style:** SCSS (Sass Modules)
+- **Powiadomienia:** React Hot Toast
+- **Komponenty UI:** Swiper (karuzele), React Icons
+
+## Funkcjonalności systemu
+
+### Moduł Klienta
+
+- Przeglądanie katalogu produktów z podziałem na kategorie (Myszki, Klawiatury, Akcesoria itp.).
+- Zaawansowane filtrowanie (według ceny, oceny, statusu promocji) oraz sortowanie produktów.
+- Pełna obsługa koszyka zakupowego (dodawanie, usuwanie, dynamiczna zmiana ilości) z zapisem stanu w pamięci przeglądarki (`localStorage`).
+- Składanie zamówień (zapis danych do bazy Firestore z relacją do użytkownika).
+- Rejestracja i logowanie użytkowników (obsługa sesji przez Firebase Auth).
+
+### Moduł Administratora
+
+- Dostęp do panelu chroniony autoryzacją (tylko dla kont z uprawnieniami administratora).
+- Pełny CRUD asortymentu (Dodawanie, Edycja, Usuwanie produktów ze sklepu).
+- Podgląd listy złożonych zamówień.
+
+### Wymagania niefunkcjonalne
+
+- **RWD (Responsive Web Design):** Aplikacja w pełni dostosowana do urządzeń mobilnych, tabletów i komputerów stacjonarnych.
+- **Dark Mode:** Interfejs zaprojektowany domyślnie w ciemnej kolorystyce, zgodnej z trendami branży gamingowej.
+
+## Instrukcja instalacji i uruchomienia
+
+Aby uruchomić projekt w środowisku lokalnym, należy wykonać następujące kroki:
+
+### 1. Wymagania wstępne
+
+Upewnij się, że na komputerze zainstalowane jest środowisko [Node.js](https://nodejs.org/) (zalecana wersja LTS, np. v20 lub nowsza).
+
+### 2. Instalacja zależności
+
+Otwórz terminal w głównym folderze projektu (tam, gdzie znajduje się plik `package.json`) i wykonaj polecenie:
 
 ```bash
 npm install
 ```
 
-2. Run development server (Turbopack enabled):
+### 3. Konfiguracja zmiennych środowiskowych
 
-```bash
+Projekt wymaga połączenia z usługą Firebase. Utwórz plik o nazwie .env.local w głównym katalogu projektu i uzupełnij go kluczami API (klucze te nie są dołączone do repozytorium ze względów bezpieczeństwa).
+
+Wzór pliku .env.local:
+
+```
+# Zmienne klienckie (Firebase)
+NEXT_PUBLIC_FIREBASE_API_KEY=twoj_klucz_api
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=twoja_domena.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=twoje_id_projektu
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=twoj_bucket.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=twoje_id_wysylania
+NEXT_PUBLIC_FIREBASE_APP_ID=twoje_app_id
+
+# Zmienne serwera (Firebase Admin)
+FIREBASE_PROJECT_ID=twoje_id_projektu
+FIREBASE_CLIENT_EMAIL=twoj_email_serwisowy@twoj_projekt.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY=twoj_klucz_prywatny_serwisu
+```
+
+### 4. Uruchomienie serwera deweloperskiego
+Aby uruchomić aplikację w trybie deweloperskim (z obsługą przeładowania na żywo):
+```
 npm run dev
 ```
+Po uruchomieniu aplikacja będzie dostępna w przeglądarce pod adresem: http://localhost:3000
 
-Open http://localhost:3000 in your browser.
-
-Build / lint
-
-```bash
-npm run build        # build for production
-npm run start        # start production server
-npm run lint         # run eslint
+### 5. Budowanie wersji produkcyjnej
+Aby zbudować wersję zoptymalizowaną do wdrożenia na serwer produkcyjny:
+```
+npm run build
 ```
 
-Where to look (key files)
+### 6. Uruchomienie serwera produkcyjnego
+Po wcześniejszym wykonaniu `npm run build`:
+```
+npm run start
+```
 
-- Routing & pages: `src/app/` (App Router; layouts are Server Components by default).
-- Client vs Server note: Client components include a top-line `'use client'` — move interactive UI into dedicated client components.
-- Firebase client init: `src/lib/firebase.ts` — uses NEXT_PUBLIC_* env vars listed below.
-- Firebase admin (server): `src/lib/firebase-admin.ts` — uses `FIREBASE_*` server env vars (service account values).
-- API route handlers: `src/app/api/*/route.ts` (export `GET`/`POST`). See `src/app/api/users/route.ts` for examples.
-- Auth & state: `src/context/AuthProvider.tsx`, `src/context/CartProvider.tsx`.
-- Data fetching / hooks: `src/hooks/` and `src/query/` (React Query hooks such as `useGetProducts.ts`).
-- Styles: SCSS files live under `src/app/assets/styles/` and alongside components for component-scoped styles.
+### 7. Linting (sprawdzenie jakości kodu)
+Aby sprawdzić kod za pomocą ESLint:
+```
+npm run lint
+```
 
-Environment variables
+### Struktura katalogów (Wybrane)
+/src/app - Główna logika routingu aplikacji (Next.js App Router).
 
-Client-side (required by `src/lib/firebase.ts`):
+/src/components - Komponenty interfejsu użytkownika wielokrotnego użytku (np. karty produktów, nawigacja).
 
-- NEXT_PUBLIC_FIREBASE_API_KEY
-- NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-- NEXT_PUBLIC_FIREBASE_PROJECT_ID
-- NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-- NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-- NEXT_PUBLIC_FIREBASE_APP_ID
+/src/context - Globalne zarządzanie stanem (np. stan koszyka, sesja użytkownika).
 
-Server-side (required by `src/lib/firebase-admin.ts`):
+/src/lib - Pliki konfiguracyjne połączenia z usługami Google Firebase (`firebase.ts`, `firebase-admin.ts`).
 
-- FIREBASE_PROJECT_ID
-- FIREBASE_CLIENT_EMAIL
-- FIREBASE_PRIVATE_KEY    (note: newlines are handled by the code via `.replace(/\\n/g, "\n")`)
+/src/hooks - Autorskie hooki React (np. do obsługi kolekcji Firestore).
 
-Check `src/lib/firebase.ts` and `src/lib/firebase-admin.ts` for exact usage.
+/src/app/assets/styles - Pliki stylów globalnych i zmiennych SCSS.
 
-Conventions & gotchas
-
-- The repo targets Next 15 App Router. Avoid `next/dynamic({ ssr: false })` inside Server Components.
-- Use React Query hooks under `src/hooks/` / `src/query/` as canonical data layer.
-- Put client-only UI in a single client component per area (e.g., navbar dropdowns inside one `'use client'` component).
-- Do not commit secrets — use `.env.local` and CI secrets for deployment.
-
-Private / project owner note
-
-- This repository is a private college project and is not open for external contributions. Do not fork, clone publicly, or submit pull requests for this repository without explicit permission from the project owner.
-- If you need to collaborate, contact the project owner for access and instructions. Keep all Firebase service account credentials and other secrets out of source control; use `.env.local` locally and CI secrets when deploying.
+/public - Zasoby statyczne (obrazy, ikony).
