@@ -1,5 +1,5 @@
-import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   const { token } = await req.json();
@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
   (await cookies()).set("token", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 24 * 7, // 7 dni
+    maxAge: 60 * 60 * 24 * 7,
     path: "/",
   });
 

@@ -7,35 +7,113 @@
   flex-direction: row;
   justify-content: space-evenly;
   color: #eaeaea;
-  padding: 10px;
-  gap: 10px;
+  padding: 20px 24px;
+  gap: 18px;
+
   @media screen and (max-width: 768px) {
     flex-direction: column;
     text-align: center;
+    padding: 18px 12px;
+    gap: 16px;
+    align-items: center;
   }
+
   &_column {
     display: flex;
     flex-direction: column;
     gap: 10px;
     flex-wrap: wrap;
+    width: auto;
+    max-width: 360px;
+    padding: 6px 8px;
+
     h3 {
       color: #ff2e88;
+      margin-bottom: 6px;
+      font-size: 16px;
     }
+
     a {
       color: white;
       text-decoration: none;
+      display: block;
+      padding: 6px 0;
+      font-size: 14px;
       &:hover {
         color: #ff2e88;
       }
     }
+
     span {
-      width: 300px;
-      font-size: 12px;
+      width: 100%;
+      max-width: 400px;
+      font-size: 13px;
       font-weight: normal;
+      margin: 0 auto;
+      line-height: 1.4;
     }
+
     .newsletter {
       display: flex;
-      gap: 20px;
+      gap: 12px;
+      align-items: center;
+      width: 100%;
+
+      .custom-input {
+        flex: 1;
+        min-width: 0; /* prevents overflow inside flex */
+      }
+
+      .icon_button {
+        width: 48px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        background: rgba(255, 46, 136, 0.06);
+        transition: transform 150ms ease, background 150ms;
+      }
+
+      .icon_button:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 46, 136, 0.12);
+      }
+
+      .icon_button:focus-visible {
+        outline: 2px solid rgba(255, 46, 136, 0.18);
+        outline-offset: 2px;
+      }
+
+      @media screen and (max-width: 480px) {
+        flex-direction: column;
+        align-items: stretch;
+
+        .custom-input {
+          width: 100%;
+        }
+
+        .icon_button {
+          width: 100%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      max-width: 100%;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255, 46, 136, 0.08);
+    }
+
+    /* make the small info block responsive */
+    div {
+      max-width: 100%;
+      margin: 0 auto;
+      p {
+        margin: 6px 0;
+        font-size: 13px;
+      }
     }
   }
 }

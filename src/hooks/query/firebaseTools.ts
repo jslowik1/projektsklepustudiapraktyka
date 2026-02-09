@@ -37,7 +37,24 @@ export const updateDocument = async (collectionName: string, id: string, data: a
 }
 
 export const removeDocument = async (collectionName: string, id: string) => {
-    console.log(id);
     const docRef = doc(db, collectionName, id);
     await deleteDoc(docRef);
+}
+
+export const getAllOrdersAsAdmin = async () => {
+    const orders = await getAllItemsFromCollection("orders");
+    const resolved = await Promise.all(orders.map(async (order) => {
+        const userRef = order.data.user;
+        if (userRef && typeof userRef === "object" && ("id" in userRef || "path" in userRef)) {
+            try {
+                const snap = await getDoc(userRef);
+                const userData = snap.exists() ? { id: snap.id, ...(snap.data() as Record<string, unknown>) } : null;
+                return { id: order.id, data: { ...order.data, user: userData } };
+            } catch {
+                return { id: order.id, data: { ...order.data, user: null } };
+            }
+        }
+        return order;
+    }));
+    return resolved;
 }

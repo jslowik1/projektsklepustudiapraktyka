@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { IProduct } from "../model/IProduct";
 
 export interface ICartItem extends IProduct {
@@ -12,7 +12,7 @@ interface CartContextType {
     addToCart: (product: IProduct) => void;
     removeFromCart: (productId: string) => void;
     clearCart: () => void;
-    updateQuantity: (productId: string, quantity: number) => void;  // Nowa funkcja
+    updateQuantity: (productId: string, quantity: number) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -36,6 +36,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [cart, isInitialized]);
 
+    //Funkcja do dodawania produktu do koszyka
     const addToCart = (product: IProduct) => {
         setCart((prev) => {
             const existing = prev.find((item) => item.id === product.id);
@@ -50,10 +51,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
+    //Funkcja do usuwania produktu z koszyka
     const removeFromCart = (productId: string) => {
         setCart((prev) => prev.filter((item) => item.id !== productId));
     };
 
+    //Funkcja do czyszczenia koszyka
     const clearCart = () => { setCart([]) };
 
     // Funkcja do aktualizacji ilości produktu w koszyku

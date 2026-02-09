@@ -1,13 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { IProduct } from "@/app/model/IProduct";
-import IconButton from "../inputs/IconButton";
 import { useCart } from "@/app/context/CartProvider";
-import { FaPlus, FaCheck } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { IProduct } from "@/app/model/IProduct";
 import { useRouter } from "next/navigation";
-import CustomRating from "../inputs/Rating";
+import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
+import { FaCheck, FaPlus } from "react-icons/fa";
+import IconButton from "../inputs/IconButton";
+import CustomRating from "../inputs/Rating";
 interface IProductCardProps {
     item: IProduct
 }
@@ -17,6 +17,11 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
     const router = useRouter();
     const [image, setImage] = useState<string>();
     const handleAddToCart = () => {
+        if (item.soldOut) {
+            toast.error("Produkt jest wyprzedany");
+            return;
+        }
+
         if (inCart) {
             removeFromCart(item.id);
             toast(`Usunięto ${item.title} z koszyka`);
@@ -51,10 +56,9 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
     }, [cart])
     console.log(item);
     if (item)
-        return (<div className="product-card">
-            {item.onSale === true ? <div className="sale-badge">
-                Promocja
-            </div> : null}
+        return (<div className={`product-card ${item.soldOut ? 'is-sold' : ''}`}>
+            {item.onSale === true ? <div className="sale-badge">Promocja</div> : null}
+            {item.soldOut ? <div className="sold-badge">Wyprzedane</div> : null}
             <div onClick={() => { router.push(`/categories/${item.category}/${item.id}`) }} style={{ backgroundImage: `url(${image})` }} className={`product-card_img ${item.category}`} />
             <div className="product-card_desc">
                 <div>{item.title}</div>
@@ -64,7 +68,7 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
                     {item.onSale ? <span style={{ color: "#ff2e88", marginLeft: 10 }}>{item.onSale === true ? `${item.salePrice} zł` : null}</span> : null}
                 </div>
                 <div className="buttons">
-                    <IconButton Icon={() => inCart ? <FaCheck /> : <FaPlus />} onClick={() => { handleAddToCart() }} />
+                    {item.soldOut ? null : <IconButton Icon={() => inCart ? <FaCheck /> : <FaPlus />} onClick={() => { handleAddToCart() }} disabled={item.soldOut} />}
                 </div>
             </div>
         </div>);

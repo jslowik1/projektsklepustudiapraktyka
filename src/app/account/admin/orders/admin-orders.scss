@@ -1,0 +1,224 @@
+.admin-orders {
+  padding: 1rem;
+
+  .admin-orders_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 1rem;
+
+    h1 {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      position: relative;
+      .search {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: rgba(255, 255, 255, 0.02);
+        color: #fff;
+      }
+
+      /* Make select readable and prevent it from blending into background or being clipped */
+      select {
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        background: rgba(17, 17, 20, 0.95);
+        color: #fff;
+        min-width: 160px;
+        box-shadow: 0 6px 30px rgba(0, 0, 0, 0.6);
+        appearance: none;
+        -webkit-appearance: none;
+        position: relative;
+        z-index: 400; /* ensure dropdown overlays other content */
+      }
+
+      select:focus {
+        outline: none;
+        box-shadow: 0 0 0 6px rgba(255, 46, 136, 0.08);
+      }
+      select option {
+        background: #111;
+        color: #fff;
+      }
+
+      .bulk-actions {
+        display: flex;
+        gap: 8px;
+        .btn {
+          padding: 8px 10px;
+          border-radius: 8px;
+          background: linear-gradient(90deg, #ff2e88, #ff7aa6);
+          border: none;
+          color: #111;
+          font-weight: 700;
+        }
+        .btn.outline {
+          background: transparent;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          color: #fff;
+        }
+      }
+    }
+
+    .admin-orders_table {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+
+      .orders-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+        color: #fff;
+        font-size: 0.95rem;
+
+        thead th {
+          padding: 12px 14px;
+          text-align: left;
+          font-weight: 700;
+          color: #ddd;
+          position: sticky;
+          top: 0;
+          background: rgba(17,17,20,0.9);
+          z-index: 10;
+        }
+
+        tbody tr {
+          background: rgba(17, 17, 20, 0.35);
+          transition: background 0.12s ease, transform 0.08s ease;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        tbody tr:hover {
+          transform: translateY(-4px);
+          background: rgba(255, 46, 136, 0.03);
+        }
+
+        td {
+          padding: 14px 12px;
+          vertical-align: middle;
+          border: none;
+        }
+      }
+
+      /* New: scroll container so only the table scrolls */
+      .table-scroll {
+        /* Dynamic height: never exceed 520px but fit into viewport on small screens */
+        max-height: min(520px, calc(100vh - 260px));
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain; /* prevent scroll chaining to the page */
+        touch-action: pan-y;
+        padding-right: 6px; /* avoid content under scrollbar */
+        position: relative;
+        scrollbar-gutter: stable;
+      }
+
+      .table-scroll::-webkit-scrollbar { width: 10px; }
+      .table-scroll::-webkit-scrollbar-track { background: transparent; }
+      .table-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(255,46,136,0.28), rgba(255,46,136,0.15));
+        border-radius: 999px;
+        border: 2px solid rgba(0,0,0,0.12);
+      }
+
+      @media (max-width: 900px) {
+        .table-scroll { max-height: min(360px, calc(100vh - 180px)); }
+      }
+        th:first-child,
+        td:first-child {
+          text-align: center;
+          width: 48px;
+        }
+
+        th:nth-child(2) {
+          min-width: 120px;
+        }
+        th:nth-child(3) {
+          min-width: 200px;
+        }
+        th:nth-child(4) {
+          width: 180px;
+        }
+        th:nth-child(5) {
+          width: 80px;
+        }
+        th:nth-child(6) {
+          width: 110px;
+        }
+
+        .badge {
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-weight: 700;
+          font-size: 0.85rem;
+          display: inline-block;
+        }
+
+        .badge.new {
+          background: rgba(255, 255, 255, 0.02);
+          color: #ddd;
+        }
+        .badge.paid {
+          background: rgba(50, 205, 130, 0.08);
+          color: #32cd82;
+        }
+        .badge.shipped {
+          background: rgba(255, 255, 255, 0.02);
+          color: #ddd;
+        }
+        .badge.cancelled {
+          background: rgba(255, 90, 90, 0.08);
+          color: #ff6b6b;
+        }
+
+        tr.selected {
+          box-shadow: inset 0 0 0 1px rgba(255, 46, 136, 0.06);
+        }
+
+        .actions {
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          .icon_button {
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+          }
+        }
+      }
+
+      .table-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 12px;
+        color: #ddd;
+        .pagination {
+          display: flex;
+          gap: 8px;
+          button {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.02);
+            color: #fff;
+          }
+        }
+        .admin-orders_table {
+          overflow-x: auto;
+        }
+      }
+    }
+  }

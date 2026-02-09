@@ -1,0 +1,92 @@
+@use "./variables" as *;
+
+@mixin glass-effect($padding: 1rem) {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: $default-border;
+  border-radius: $border-radius;
+  padding: $padding;
+  color: #fff;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+@mixin btn-styles($variant: primary, $size: medium) {
+  // Bazowe style
+  border: $thick-border;
+  background: transparent;
+  font-weight: bold;
+  color: #eaeaea;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  border-radius: $border-radius;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+
+  // Rozmiary
+  @if $size == small {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+  } @else if $size == large {
+    padding: 0.6rem 1.5rem;
+    font-size: 1.2rem;
+  } @else {
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+  }
+
+  // Warianty
+  @if $variant == primary {
+    border-color: $base-color;
+    &:hover, &.active {
+      background-color: $base-color;
+      transform: scale(1.05);
+    }
+  } @else if $variant == secondary {
+    border-color: #666;
+    &:hover, &.active {
+      background-color: #666;
+      transform: scale(1.05);
+    }
+  } @else if $variant == danger {
+    border-color: #ff4444;
+    &:hover, &.active {
+      background-color: #ff4444;
+      transform: scale(1.05);
+    }
+  }
+
+  // Stany specjalne
+  &:focus {
+    outline: 2px solid $base-color;
+    outline-offset: 2px;
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  &.loading {
+    opacity: 0.7;
+    &::after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      margin: auto;
+      border: 2px solid transparent;
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

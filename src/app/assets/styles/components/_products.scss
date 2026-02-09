@@ -1,37 +1,51 @@
+@use "../variables" as *;
+
 .product-main {
   height: 100%;
-  background-color: #0d0c1da1;
+  background-color: rgba($dark-bg-color, 0.63);
   background-image: url("../../../assets/images/background.png");
   background-blend-mode: darken;
   background-size: cover;
   background-position: center;
+
   padding: 20px;
   flex: 1;
   display: flex;
+  &.cart-layout {
+    flex-direction: row;
+    gap: 20px;
+    @media (max-width: 760px) {
+      flex-direction: column;
+    }
+  }
   flex-direction: column;
 }
 
 .product-list {
   display: flex;
   color: white;
-  background-color: rgba(26, 26, 46, 0.75);
   height: 100%;
   flex: 1;
+  border-radius: $border-radius;
+  border: $thick-border;
+  background: linear-gradient(
+    135deg,
+    rgba($dark-bg-color, 0.7) 0%,
+    rgba($dark-bg-color, 0.5) 100%
+  );
   border-radius: 0.75rem;
-  border: 2px solid #ff2e88;
-
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   @media (max-width: 760px) {
     flex-direction: column;
   }
 
   &_filters {
-
-
-
     display: flex;
     flex-direction: column;
     gap: 10px;
-    border-right: 2px solid #ff2e88;
+    border-right: $thick-border;
     padding: 20px;
 
     &-sort {
@@ -65,7 +79,7 @@
     height: 100%;
     width: 100%;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-tablet) {
       flex-direction: column;
       overflow-y: scroll;
       justify-content: center;

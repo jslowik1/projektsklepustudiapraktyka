@@ -1,19 +1,20 @@
 "use client";
-import { MdPerson, MdPhone, MdShoppingBasket } from "react-icons/md";
-import IconButton from "../inputs/IconButton";
-import { usePathname, useRouter } from "next/navigation";
-import { useCart } from "@/app/context/CartProvider";
-import { BiMenu } from "react-icons/bi";
-import { useState } from "react";
-import { IoClose } from "react-icons/io5";
-import image from "../../assets/images/logo.png";
-import Image from "next/image";
 import { useAuth } from "@/app/context/AuthProvider";
+import { useCart } from "@/app/context/CartProvider";
 import { useScreenWidth } from "@/app/tools/useScreenWidth";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { BiMenu } from "react-icons/bi";
+import { IoClose } from "react-icons/io5";
+import { MdPerson, MdPhone, MdShoppingBasket } from "react-icons/md";
+import image from "../../assets/images/logo.png";
+import IconButton from "../inputs/IconButton";
 
 const Navbar = () => {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname() ?? "";
   const { cart } = useCart();
   const [visibleNavbar, setVisibleNavbar] = useState<boolean>(false);
   const screenWidth = useScreenWidth();
@@ -23,16 +24,15 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navbar_header">
         <div className="navbar_header-logo">
-          <Image
-            width={100}
-            onClick={() => {
-              router.push("/");
-            }}
-            src={image.src}
-            className="navbar_header-logo_img"
-            alt=""
-            height={50}
-          />
+          <Link href="/">
+            <Image
+              width={100}
+              src={image.src}
+              className="navbar_header-logo_img"
+              alt=""
+              height={50}
+            />
+          </Link>
         </div>
         {(screenWidth && screenWidth < 768) && (
           <IconButton
@@ -48,43 +48,42 @@ const Navbar = () => {
             className={`navbar_buttons ${(screenWidth && screenWidth < 768) ? "mobile" : ""} ${visibleNavbar ? "visible" : ""
               }`}
           >
-            <button
+            <Link
               className={pathname === "/categories/keyboard" ? "active" : ""}
-              onClick={() => router.push("/categories/keyboard")}
+              href="/categories/keyboard"
             >
               Klawiatury
-            </button>
-            <button
+            </Link>
+            <Link
               className={pathname === "/categories/mouse" ? "active" : ""}
-              onClick={() => router.push("/categories/mouse")}
+              href="/categories/mouse"
             >
               Myszki
-            </button>
-            <button
+            </Link>
+            <Link
               className={pathname === "/categories/mousepad" ? "active" : ""}
-              onClick={() => router.push("/categories/mousepad")}
+              href="/categories/mousepad"
             >
               Podkładki
-            </button>
-            <button
+            </Link>
+            <Link
               className={pathname === "/categories/microphone" ? "active" : ""}
-              onClick={() => router.push("/categories/microphone")}
+              href="/categories/microphone"
             >
               Mikrofony
-            </button>
-            <button
+            </Link>
+            <Link
               className={pathname === "/categories/accessories" ? "active" : ""}
-              onClick={() => router.push("/categories/accessories")}
+              href="/categories/accessories"
             >
               Akcesoria
-            </button>
-            <button
-              className={`${pathname === "/categories/accessories" ? "active" : ""
-                } sale`}
-              onClick={() => router.push("/categories/sale")}
+            </Link>
+            <Link
+              className={`${pathname === "/categories/sale" ? "active" : ""} sale`}
+              href="/categories/sale"
             >
               Wyprzedaż
-            </button>
+            </Link>
           </div>
         }
         <div className="navbar_header-buttons">

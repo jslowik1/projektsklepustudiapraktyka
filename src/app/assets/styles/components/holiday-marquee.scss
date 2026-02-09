@@ -1,0 +1,44 @@
+/* Festive marquee styles */
+.current-offer {
+  background: linear-gradient(90deg, #b71c1c 0%, #ffb300 100%);
+  color: #fff;
+  padding: 10px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.current-offer span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 48px;
+  font-size: 0.95rem;
+  padding: 0 6px;
+}
+
+.current-offer .offer-item::before {
+  margin-right: 6px;
+}
+
+.current-offer .offer-delivery::before { content: "🚚"; }
+.current-offer .offer-sale::before { content: "🎉"; }
+.current-offer .offer-guarantee::before { content: "📦"; }
+
+.current-offer .holiday-link {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,0.32);
+  font-weight: 900;
+}
+
+.current-offer .holiday-link:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .current-offer span { font-size: 0.85rem; margin-right: 32px; }
+}

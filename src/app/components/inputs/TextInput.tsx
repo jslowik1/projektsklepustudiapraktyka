@@ -6,7 +6,8 @@ interface ITextInputProps {
   placeholder?: string;
   type?: HTMLInputTypeAttribute;
   disabled?: boolean;
-  value?: string
+  value?: string;
+  invalid?: boolean;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -15,18 +16,20 @@ const TextInput: React.FC<ITextInputProps> = ({
   placeholder,
   type,
   disabled,
-  value
+  value,
+  invalid
 }) => {
   return (
     <div className="text-input">
-      {label ? <span style={{ margin: "5px 0" }}>{label}</span> : null}
+      {label ? <label className="text-input-label">{label}</label> : null}
       <input
         disabled={disabled}
-        className="custom-input"
+        className={`custom-input ${invalid ? 'invalid' : ''}`}
         type={type ?? "text"}
         placeholder={placeholder ? placeholder : ""}
         onChange={(e) => onChange(e.target.value ?? "")}
         value={value}
+        aria-invalid={invalid}
       />
     </div>
   );

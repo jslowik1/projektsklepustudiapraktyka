@@ -1,16 +1,16 @@
 "use client";
 
+import { auth, db } from "@/lib/firebase";
+import { onAuthStateChanged, signOut, User } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 import {
   createContext,
+  ReactNode,
   useContext,
   useEffect,
   useState,
-  ReactNode,
 } from "react";
-import { onAuthStateChanged, signOut, User } from "firebase/auth";
-import { auth, db } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
-import { doc, getDoc } from "firebase/firestore";
 import { UserAddress } from "../model/User";
 
 interface AuthContextType {
@@ -41,7 +41,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const router = useRouter();
 
-  // Obsługa stanu logowania
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setUser(user);
@@ -72,9 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     void getItems()
   }, [user])
 
-  // Sprawdzenie czy user jest adminem
   useEffect(() => {
-    // W useEffect do sprawdzania admina
     const checkAdmin = async () => {
       if (!user) {
         setIsAdmin(false);

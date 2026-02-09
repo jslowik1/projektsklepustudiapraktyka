@@ -3,6 +3,7 @@
 import Spinner from "@/app/components/inputs/Spinner";
 import { useGetUsers } from "@/hooks/query/useGetUsers";
 import { useEffect, useState } from "react";
+import "../products/table.scss";
 const Page = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [users, setUsers] = useState<any[]>([]);

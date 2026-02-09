@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IProduct } from "@/app/model/IProduct";
 import { useQuery } from "@tanstack/react-query";
 import { getAllItemsFromCollection } from "./firebaseTools";
-import { IProduct } from "@/app/model/IProduct";
 
 const mapDataToProduct = (data: { id: string; data: any }[]): IProduct[] => {
     return data.map((item) => {
@@ -15,7 +15,8 @@ const mapDataToProduct = (data: { id: string; data: any }[]): IProduct[] => {
             image: item.data.image,
             rating: item.data.rating,
             onSale: item.data.onSale ?? false,
-            salePrice: item.data.salePrice ?? 0
+            salePrice: item.data.salePrice ?? 0,
+            soldOut: item.data.soldOut ?? false
         };
     });
 }

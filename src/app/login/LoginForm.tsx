@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import { useEffect, useState } from "react";
-import TextInput from "../components/inputs/TextInput";
-import IconButton from "../components/inputs/IconButton";
-import { FaEyeSlash, FaEye } from "react-icons/fa";
-import Spinner from "../components/inputs/Spinner";
-import toast from "react-hot-toast";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import IconButton from "../components/inputs/IconButton";
+import Spinner from "../components/inputs/Spinner";
+import TextInput from "../components/inputs/TextInput";
 
 const LoginForm = () => {
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
@@ -20,21 +20,30 @@ const LoginForm = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const router = useRouter();
 
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
+
   const isValidForm = (): boolean => {
-    if (isRegister && email && password && repeatPassword) {
-      if (password === repeatPassword) return true;
-      else return false;
-    } else if (email && password) {
+    const emailOk = Boolean(email) && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailOk) return false;
+
+    if (isRegister) {
+      if (!password || !repeatPassword) return false;
+      if (password !== repeatPassword) return false;
+      if (password.length < 6) return false; // simple rule
+      return true;
+    }
+
+    if (email && password) {
       return true;
     }
     return false;
   };
 
   useEffect(() => {
-    console.log(isValid);
+    const emailOk = email ? (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) : false;
+    setIsEmailValid(emailOk || email.length === 0);
     setIsValid(isValidForm());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [email, password, repeatPassword]);
+  }, [email, password, repeatPassword, isRegister]);
 
   const handleLogin = () => {
     setIsLoading(true);
@@ -99,78 +108,94 @@ const LoginForm = () => {
   }, [isValid]);
 
   return (
-    <div className="login-form">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          if (isLoading) return;
-          if (isValid === false) return;
-          if (isRegister) handleRegister();
-          else handleLogin();
-        }}
-      >
-        <div className="login-form_inputs">
-          <TextInput
-            disabled={isLoading}
-            onChange={setEmail}
-            type="email"
-            placeholder="Twój adres e-mail"
-            label="E-Mail"
-          />
-          <div className="login-form_inputs-password">
+    <div className="login-page">
+      <div className="login-dialog" role="region" aria-labelledby="login-title">
+        <h2 id="login-title" className="login-title">{isRegister ? 'Zarejestruj się' : 'Zaloguj się'}</h2>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (isLoading) return;
+            if (!isValid) return;
+            if (isRegister) handleRegister();
+            else handleLogin();
+          }}
+        >
+          <div className="login-form_inputs">
             <TextInput
-              onChange={setPassword}
               disabled={isLoading}
-              type={passwordVisible ? "text" : "password"}
-              placeholder="Twoje hasło"
-              label="Hasło"
+              onChange={setEmail}
+              type="email"
+              placeholder="Twój adres e-mail"
+              label="E-Mail"
+              invalid={!isEmailValid}
             />
-            <IconButton
-              Icon={passwordVisible ? () => <FaEyeSlash /> : () => <FaEye />}
-              onClick={() => setPasswordVisible(!passwordVisible)}
-            />
-          </div>
-          {isRegister && (
+            {!isEmailValid && (
+              <div className="field-error">Podaj poprawny adres e-mail</div>
+            )}
+
             <div className="login-form_inputs-password">
               <TextInput
+                onChange={setPassword}
                 disabled={isLoading}
-                onChange={setRepeatPassword}
                 type={passwordVisible ? "text" : "password"}
                 placeholder="Twoje hasło"
-                label="Powtórz hasło"
+                label="Hasło"
+                aria-invalid={!isValid && !isRegister ? true : false}
+              />
+              <IconButton
+                Icon={passwordVisible ? () => <FaEyeSlash /> : () => <FaEye />}
+                onClick={() => setPasswordVisible(!passwordVisible)}
               />
             </div>
-          )}
 
-          <button
-            type="submit"
-            disabled={isLoading || !isValid}
-            onClick={(e) => { e.preventDefault(); if (isRegister) handleRegister(); else handleLogin(); }}
-            className="login-button"
-          >
-            {isLoading ? (
-              <Spinner />
-            ) : isRegister ? (
-              "Zarejestruj się"
-            ) : (
-              "Zaloguj się"
+            {isRegister && (
+              <div className="login-form_inputs-password">
+                <TextInput
+                  disabled={isLoading}
+                  onChange={setRepeatPassword}
+                  type={passwordVisible ? "text" : "password"}
+                  placeholder="Powtórz hasło"
+                  label="Powtórz hasło"
+                  aria-invalid={isRegister && password !== repeatPassword}
+                />
+              </div>
             )}
+
+            {isRegister && password && repeatPassword && password !== repeatPassword && (
+              <div className="field-error">Hasła nie są takie same</div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading || !isValid}
+              className={`login-button primary ${isLoading ? 'loading' : ''}`}
+            >
+              {isLoading ? (
+                <div className="btn-loading"><Spinner size={18} /></div>
+              ) : isRegister ? (
+                "Zarejestruj się"
+              ) : (
+                "Zaloguj się"
+              )}
+            </button>
+          </div>
+        </form>
+
+        <div className="login-form_register">
+          <p>{isRegister ? 'Masz już konto?' : 'Nie masz konta?'}</p>
+          <button
+            onClick={() => {
+              setIsRegister(!isRegister);
+              setIsValid(isValidForm());
+            }}
+            className="login-button secondary"
+          >
+            {isRegister ? "Zaloguj się" : "Zarejestruj się"}
           </button>
         </div>
-      </form >
-
-      <div className="login-form_register">
-        <p>Nie masz konta?</p>
-        <button
-          onClick={() => {
-            setIsRegister(!isRegister);
-          }}
-          className="login-button"
-        >
-          {isRegister ? "Zaloguj się" : "Zarejestruj się"}
-        </button>
       </div>
-    </div >
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import TextInput from "@/app/components/inputs/TextInput";
 import { useAuth } from "@/app/context/AuthProvider";
 import { UserAddress } from "@/app/model/User";
 import { useEffect, useState } from "react";
+import "./checkout.scss";
 
 const Page = () => {
     const { userData, user } = useAuth();

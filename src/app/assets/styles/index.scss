@@ -1,6 +1,11 @@
+@forward "reset";
 @forward "fonts";
-@forward "./variables";
+@forward "variables";
+@forward "mixins";
+@forward "utilities";
+@forward "./components/buttons";
 @use "./components/navbar.scss";
+@use "./components/holiday-marquee.scss";
 @use "./components/footer.scss";
 @use "./components/products.scss";
 @use "./components/customdropdown.scss";

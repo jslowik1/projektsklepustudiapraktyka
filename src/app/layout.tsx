@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import "./assets/styles/index.scss";
-import Navbar from "./components/navbar/Navbar";
-import Footer from "./components/footer/Footer";
-import { Providers } from "./context/ContextProviders";
 import { Toaster } from "react-hot-toast";
+import "./assets/styles/index.scss";
+import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/Navbar";
+import { Providers } from "./context/ContextProviders";
+import favicon from "./favicon.png";
 
 export const metadata: Metadata = {
   title: "GameZone",
@@ -17,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href={favicon.src} sizes="any" />
+      </head>
       <body className={`mainbody`}>
         <Providers>
           <Navbar />
