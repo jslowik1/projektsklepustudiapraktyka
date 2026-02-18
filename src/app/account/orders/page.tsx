@@ -21,7 +21,6 @@ const Page = () => {
             setOrders(userOrders.data.sort((a, b) => b.orderDate.getTime() - a.orderDate.getTime()));
         }
     }, [userOrders.data, userOrders.status])
-    console.log(selectedOrder);
 
     return (
         <div className="account-inside orders">

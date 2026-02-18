@@ -54,7 +54,6 @@ const ProductCard: React.FC<IProductCardProps> = ({ item }) => {
         else
             setInCart(false);
     }, [cart])
-    console.log(item);
     if (item)
         return (<div className={`product-card ${item.soldOut ? 'is-sold' : ''}`}>
             {item.onSale === true ? <div className="sale-badge">Promocja</div> : null}

@@ -3,8 +3,8 @@ import IconButton from "@/app/components/inputs/IconButton";
 import { ICartItem, useCart } from "@/app/context/CartProvider";
 import { FaTrash } from "react-icons/fa";
 
-interface CariItemProps { item: ICartItem }
-const CartItem: React.FC<CariItemProps> = ({ item }) => {
+interface CartItemProps { item: ICartItem }
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
 
     const { removeFromCart, updateQuantity } = useCart()
 

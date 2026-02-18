@@ -53,10 +53,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const getItems = async () => {
       if (user) {
-        console.log(user.uid);
         const docRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(docRef);
-        console.log(docSnap.data());
         if (docSnap.exists()) {
           const data = docSnap.data();
           const userData = {

@@ -112,7 +112,6 @@ const Page = () => {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
     }
   }
-  console.log(fetchedProducts);
   useEffect(() => {
     if (productsQuery.data) {
       setFetchedProducts(productsQuery.data);

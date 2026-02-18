@@ -28,7 +28,6 @@ const Page = () => {
 
 
   useEffect(() => {
-    console.log(unfilteredProducts);
     const filteredProductsNew = unfilteredProducts
       .filter((product) =>
         product.title.toLowerCase().includes(search.toLowerCase())

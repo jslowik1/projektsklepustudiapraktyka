@@ -72,7 +72,6 @@ const LoginForm = () => {
           router.push("/");
         }, 2000);
       } catch (error: any) {
-        console.log(error);
         setIsLoading(false);
         toast("Podczas logowania wystąpił błąd", { icon: "⚠️" });
       }
@@ -97,15 +96,10 @@ const LoginForm = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
           setIsLoading(false);
         });
     }, 2000);
   };
-
-  useEffect(() => {
-    console.log(isValid);
-  }, [isValid]);
 
   return (
     <div className="login-page">

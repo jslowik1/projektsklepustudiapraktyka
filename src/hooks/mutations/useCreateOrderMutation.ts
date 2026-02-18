@@ -26,7 +26,6 @@ export const useCreateOrder = () => {
             const productsForOrder = cart.map((item) => {
                 const unitPrice = item.onSale && item.salePrice ? item.salePrice : item.price;
                 const lineTotal = Math.round(unitPrice * item.quantity * 100) / 100;
-                console.log(unitPrice);
                 return {
                     id: item.id,
                     title: item.title,
