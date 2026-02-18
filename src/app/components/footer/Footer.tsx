@@ -79,7 +79,7 @@ const Footer = () => {
 
           <div style={{ maxWidth: "400px" }}>
             <p>
-              © Copyright 2025 - All rights reserved. <br />
+              © Copyright 2026 - All rights reserved. <br />
               <a href="https://github.com/jslowik1">Jakub Słowik</a>
             </p>
             <p>Kod projektu: <a href="https://github.com/jslowik1/projektsklepustudiapraktyka">GitHub</a></p>
