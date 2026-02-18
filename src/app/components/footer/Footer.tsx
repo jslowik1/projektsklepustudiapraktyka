@@ -34,16 +34,16 @@ const Footer = () => {
       <div className="footer">
         <div className="footer_column">
           <h3>Informacje</h3>
-          <a href="">O nas</a>
-          <a href="">Regulamin</a>
-          <a href="">Polityka prywatności</a>
-          <a href="">Kontakt</a>
+          <Link href="/about">O nas</Link>
+          <Link href="/terms">Regulamin</Link>
+          <Link href="/privacy">Polityka prywatności</Link>
+          <Link href="/contact">Kontakt</Link>
         </div>
         <div className="footer_column">
           <h3>Obsługa</h3>
-          <a href="">Dostawa i płatności</a>
-          <a href="">Zwroty</a>
-          <a href="">FAQ</a>
+          <Link href="/shipping">Dostawa i płatności</Link>
+          <Link href="/returns">Zwroty</Link>
+          <Link href="/faq">FAQ</Link>
         </div>
         <div className="footer_column">
           <h3>Kategorie</h3>
@@ -79,11 +79,11 @@ const Footer = () => {
 
           <div style={{ maxWidth: "400px" }}>
             <p>
-              © Copyright 2026 - All rights reserved. <br />
-              <a href="https://github.com/jslowik1">Jakub Słowik</a>
+              &copy; {new Date().getFullYear()} GameZone - All rights reserved. <br />
+              Designed & Developed by <a href="https://github.com/jslowik1" target="_blank" rel="noopener noreferrer">Jakub Słowik</a>
             </p>
-            <p>Kod projektu: <a href="https://github.com/jslowik1/projektsklepustudiapraktyka">GitHub</a></p>
-            <p>Jest to wersja demonstracyjna sklepu. Aplikacja jest wykorzystywana tylko w celach edukacyjnych. Zamówienia nie zostaną zrealizowane. <br />
+            <p>
+              Kod źródłowy: <a href="https://github.com/jslowik1/projektsklepustudiapraktyka" target="_blank" rel="noopener noreferrer">GitHub</a>
             </p>
           </div>
         </div>
